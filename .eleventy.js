@@ -1,4 +1,5 @@
 module.exports = function (eleventyConfig) {
-  console.log('wtf');
-  eleventyConfig.addPassthroughCopy("src/assets");
+  eleventyConfig.addPassthroughCopy("src/**/*.css");
+  eleventyConfig.addPassthroughCopy("src/**/*.js");
+  eleventyConfig.setDataDeepMerge(true);
 };
