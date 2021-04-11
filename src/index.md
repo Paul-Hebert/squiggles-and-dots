@@ -1,3 +1,8 @@
+---
+title: Squiggles and Dots
+layout: base.hbs
+---
+
 # Squiggles and Dots
 
-_A Generative Art Playground_
+_A generative art playground by Paul Hebert_
