@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "npx @11ty/eleventy --input=src --output=dist",
     "start": "npx @11ty/eleventy --input=src --output=dist --serve"
   },
   "author": "",
