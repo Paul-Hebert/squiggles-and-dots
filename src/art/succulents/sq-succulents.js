@@ -1,39 +1,54 @@
-import { Sandbox } from '../../assets/js/sandbox.js'
+import { SVG } from "https://cdn.skypack.dev/@svgdotjs/svg.js";
+import { SqPreview } from '../../assets/js/sq-preview.js'
 import {
   random
 } from "https://cdn.skypack.dev/@georgedoescode/generative-utils@1.0.0";
 
-new Sandbox(function(canvas) {
-  canvas.node.style.backgroundColor = hsla({
-    h: random(0, 360),
-    s: random(0, 60),
-    l: random(10, 100),
-    a: 100
-  });
+export class SqSucculents extends SqPreview {
+  constructor() {
+    super();
 
-  const succulents = [];
-  const minSucculentSize = 30;
-  const maxSucculentSize = 600;
-  for (let i = 0; i < 1000; i++) {
-    const newSucculent = {
-      x: random(0, 2000),
-      y: random(0, 1000),
-      radius: maxSucculentSize
-    };
+    this.canvas = SVG().addTo(this).viewbox(0, 0, 2000, 1000);
+  }
 
-    while (
-      isColliding(succulents, newSucculent) &&
-      newSucculent.radius > minSucculentSize
-    ) {
-      newSucculent.radius -= 1;
-    }
-
-    if (newSucculent.radius > minSucculentSize) {
-      succulents.push(newSucculent);
-      addSucculent({...{canvas: canvas}, ...newSucculent});
+  draw = () => {
+    this.canvas.node.style.backgroundColor = hsla({
+      h: random(0, 360),
+      s: random(0, 60),
+      l: random(10, 100),
+      a: 100
+    });
+  
+    const succulents = [];
+    const minSucculentSize = 30;
+    const maxSucculentSize = 600;
+    for (let i = 0; i < 1000; i++) {
+      const newSucculent = {
+        x: random(0, 2000),
+        y: random(0, 1000),
+        radius: maxSucculentSize
+      };
+  
+      while (
+        isColliding(succulents, newSucculent) &&
+        newSucculent.radius > minSucculentSize
+      ) {
+        newSucculent.radius -= 1;
+      }
+  
+      if (newSucculent.radius > minSucculentSize) {
+        succulents.push(newSucculent);
+        addSucculent({...{canvas: this.canvas}, ...newSucculent});
+      }
     }
   }
-});
+
+  clear = () => {
+    this.canvas.clear();
+  }
+}
+
+customElements.define("sq-succulents", SqSucculents);
 
 function addSucculent({ canvas, x, y, radius }) {
   const group = canvas.group();

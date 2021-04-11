@@ -1,8 +1,9 @@
 ---
 title: Succulents
 layout: "art.hbs"
+tag: "sq-succulents"
 scripts: 
-- succulents
+- "sq-succulents"
 ---
 
 Hello
