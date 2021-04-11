@@ -1,6 +1,6 @@
 ---
 title: Squiggles and Dots
-layout: base.hbs
+layout: listings.hbs
 ---
 
 # Squiggles and Dots

@@ -1,0 +1,22 @@
+---
+layout: base.hbs
+scripts:
+- /assets/js/listings
+---
+
+{{{content}}}
+
+{{#each collections.art}}
+  <li>
+    <a href="{{url url}}">
+      <{{data.tag}} class="listing"></{{data.tag}}>
+      {{data.title}}
+    </a>
+  </li>
+{{/each}}
+
+{{!-- TODO: Move this --}}
+{{#each collections.art}}
+  {{!-- TODO: Clean this up --}}
+  <script src="/art/{{data.slug}}/{{data.tag}}.js" type="module"></script>
+{{/each}}

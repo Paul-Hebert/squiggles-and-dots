@@ -1,6 +1,6 @@
 ---
 title: Succulents
-layout: "art.hbs"
+slug: "succulents"
 tag: "sq-succulents"
 scripts: 
 - "sq-succulents"
