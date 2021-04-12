@@ -5,6 +5,7 @@ template.innerHTML = /*html*/`
       display: block;
     }
     ::slotted(*) { 
+      background: #fff;
       max-width: 100%;
       height: auto;
     }

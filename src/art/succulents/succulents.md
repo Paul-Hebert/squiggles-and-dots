@@ -3,7 +3,7 @@ title: Succulents
 slug: "succulents"
 tag: "sq-succulents"
 scripts: 
-- "sq-succulents"
+- "succulents"
 ---
 
-Hello
+A series of spiraling succulents.
