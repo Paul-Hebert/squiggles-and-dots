@@ -6,7 +6,7 @@ template.innerHTML = /*html*/`
     }
     ::slotted(*) { 
       background: #fff;
-      max-width: 100%;
+      width: 100%;
       height: auto;
     }
   </style>
@@ -18,10 +18,12 @@ export class SqPreview extends HTMLElement {
     super();
     this.attachShadow({ mode: "open" }).appendChild(
       template.content.cloneNode(true)
-    );  
+    );
+    this.slot = this.shadowRoot.querySelector('slot');
   }
 
   connectedCallback() {
+    this.canvas = this.addCanvas();
     this.draw();
   }
 
@@ -33,7 +35,11 @@ export class SqPreview extends HTMLElement {
   }
 
   draw = () => {
-    this.innerHTML = "Draw function not defined"
+    console.error("Draw function not defined");
+  }
+
+  addCanvas = () => {
+    console.error('addCanvas not defined.');
   }
 
   refresh = () => {

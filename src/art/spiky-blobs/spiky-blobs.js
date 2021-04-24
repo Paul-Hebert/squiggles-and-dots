@@ -1,22 +1,14 @@
-import { SVG } from "https://cdn.skypack.dev/@svgdotjs/svg.js";
-import { SqPreview } from '../../assets/js/sq-preview.js'
+import { SqSvg } from '../../assets/js/sq-svg.js'
 import {
   random
 } from "https://cdn.skypack.dev/@georgedoescode/generative-utils@1.0.0"; 100;
 
-export class SqSpikyBlobs extends SqPreview {
-  constructor() {
-    super();
-
-    this.canvas = SVG().addTo(this).viewbox(0, 0, 200, 100);
-  }
+export class SqSpikyBlobs extends SqSvg {
+  width = 200;
+  height = 100;
 
   draw = () => {
     addSucculent(this.canvas, 100, 50, random(10, 48));
-  }
-
-  clear = () => {
-    this.canvas.clear();
   }
 }
 
