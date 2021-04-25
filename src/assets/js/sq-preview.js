@@ -2,7 +2,7 @@ const template = document.createElement("template");
 template.innerHTML = /*html*/`
   <style>
     :host { 
-      display: block;
+      display: flex;
     }
     ::slotted(*) { 
       background: #fff;
@@ -19,7 +19,6 @@ export class SqPreview extends HTMLElement {
     this.attachShadow({ mode: "open" }).appendChild(
       template.content.cloneNode(true)
     );
-    this.slot = this.shadowRoot.querySelector('slot');
   }
 
   connectedCallback() {
@@ -49,6 +48,7 @@ export class SqPreview extends HTMLElement {
 
   play = () =>  {
     this.isPlaying = true;
+    this.refresh();
     this.refreshInterval = setInterval(this.refresh, 500);
   }
 

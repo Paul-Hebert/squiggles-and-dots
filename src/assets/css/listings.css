@@ -1,3 +1,39 @@
 .listings {
-  
+  list-style: none;
+  padding: 0;
+}
+
+.listings > * {
+  margin-top: 2em;
+}
+
+.card {
+  background: hsl(0, 0%, 100%);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.2em;
+}
+
+.card__graphic {
+  /* aspect ratio stuff */
+}
+
+.card__primary-action {
+  border-top: 1px solid hsl(0, 0%, 90%);
+  display: block;
+  font-size: 1.5em;
+  font-weight: bold;
+  padding: 1em;
+  text-decoration: none;
+}
+
+.card__primary-action::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }

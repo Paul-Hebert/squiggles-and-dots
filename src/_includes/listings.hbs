@@ -2,21 +2,25 @@
 layout: base.hbs
 scripts:
 - /assets/js/listings
+styles:
+- /assets/css/listings
 ---
 
 {{{content}}}
 
-{{#each collections.art}}
-  <li>
-    <a href="{{url url}}">
-      <{{data.tag}} class="listing"></{{data.tag}}>
+<ul class="listings">
+  {{#each collections.art}}
+  <li class="card">
+    <{{data.tag}} class="card__graphic"></{{data.tag}}>
+    <a href="{{url url}}" class="card__primary-action">
       {{data.title}}
     </a>
   </li>
-{{/each}}
+  {{/each}}
+</ul>
 
 {{!-- TODO: Move this --}}
 {{#each collections.art}}
-  {{!-- TODO: Clean this up --}}
-  <script src="/art/{{data.slug}}/{{data.slug}}.js" type="module"></script>
+{{!-- TODO: Clean this up --}}
+<script src="/art/{{data.slug}}/{{data.slug}}.js" type="module"></script>
 {{/each}}
