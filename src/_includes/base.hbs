@@ -10,15 +10,15 @@
   <link rel="stylesheet" href="/assets/css/base.css">
 
   {{#each styles}}
-    <link rel="stylesheet" href="{{this}}.css">
+  <link rel="stylesheet" href="{{this}}.css">
   {{/each}}
 </head>
 
 <body>
-  <header class="header">
+  <header class="container">
     <a href="/">Squiggles and Dots</a>
   </header>
-  <main class="main stack">
+  <main>
     {{{content}}}
   </main>
 
@@ -26,4 +26,5 @@
     <script src="{{this}}.js" type="module"></script>
   {{/each}}
 </body>
+
 </html>

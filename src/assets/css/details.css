@@ -1,0 +1,19 @@
+.details {
+  display: grid;
+  gap: 1em;
+  grid-template-columns: 1fr 2fr;
+}
+
+.details__preview {
+  flex-grow: 2;
+}
+
+.bonus-listings {
+  background: hsl(0, 0%, 92%);
+}
+
+.bonus-listings__inner {
+  display: grid;
+  gap: 1em;
+  grid-template-columns: repeat(auto-fit, minmax(18em, 1fr));
+}

@@ -3,17 +3,102 @@ title: Succulents
 layout: base.hbs
 scripts:
 - /assets/js/details
+styles: 
+- /assets/css/details
 ---
 
-<h1>{{title}}</h1>
+<section class="container details" aria-labelledby="details-heading">
+  <div class="details__description stack">
+    <h1 id="details-heading">{{title}}</h1>
 
-{{{content}}}
+    {{{content}}}
+  </div>
+  <div class="details__preview stack">
+    <div class="embed-loader" style="--aspect-ratio: {{height}}/{{width}};">
+      <{{tag}} class="details__graphic"></{{tag}}>
+    </div>
 
-<div class="embed-loader" style="--aspect-ratio: {{height}}/{{width}};">
-  <{{tag}} class="details"></{{tag}}>
-</div>
+    <div>
+      <button class="js-refresh">Refresh</button>
+      <button class="js-slideshow">Slideshow</button>
+    </div>
+  </div>
+</section>
 
-<div>
-  <button class="js-refresh">Refresh</button>
-  <button class="js-slideshow">Slideshow</button>
+{{!-- TODO: Section with heading --}}
+<div class="bonus-listings">
+  <div class="container container--wide bonus-listings__inner">
+    {{!-- TODO: For Loop helper --}}
+    <div class="bonus-listings__listing">
+      <div class="embed-loader" style="--aspect-ratio: {{height}}/{{width}};">
+        <{{tag}} class="bonus-listings__graphic"></{{tag}}>
+      </div>
+    </div>
+
+    <div class="bonus-listings__listing">
+      <div class="embed-loader" style="--aspect-ratio: {{height}}/{{width}};">
+        <{{tag}} class="bonus-listings__graphic"></{{tag}}>
+      </div>
+    </div>
+    
+    <div class="bonus-listings__listing">
+      <div class="embed-loader" style="--aspect-ratio: {{height}}/{{width}};">
+        <{{tag}} class="bonus-listings__graphic"></{{tag}}>
+      </div>
+    </div>
+    
+    <div class="bonus-listings__listing">
+      <div class="embed-loader" style="--aspect-ratio: {{height}}/{{width}};">
+        <{{tag}} class="bonus-listings__graphic"></{{tag}}>
+      </div>
+    </div>
+    
+    <div class="bonus-listings__listing">
+      <div class="embed-loader" style="--aspect-ratio: {{height}}/{{width}};">
+        <{{tag}} class="bonus-listings__graphic"></{{tag}}>
+      </div>
+    </div>
+    
+    <div class="bonus-listings__listing">
+      <div class="embed-loader" style="--aspect-ratio: {{height}}/{{width}};">
+        <{{tag}} class="bonus-listings__graphic"></{{tag}}>
+      </div>
+    </div>
+    
+    <div class="bonus-listings__listing">
+      <div class="embed-loader" style="--aspect-ratio: {{height}}/{{width}};">
+        <{{tag}} class="bonus-listings__graphic"></{{tag}}>
+      </div>
+    </div>
+    
+    <div class="bonus-listings__listing">
+      <div class="embed-loader" style="--aspect-ratio: {{height}}/{{width}};">
+        <{{tag}} class="bonus-listings__graphic"></{{tag}}>
+      </div>
+    </div>
+    
+    <div class="bonus-listings__listing">
+      <div class="embed-loader" style="--aspect-ratio: {{height}}/{{width}};">
+        <{{tag}} class="bonus-listings__graphic"></{{tag}}>
+      </div>
+    </div>
+    
+    <div class="bonus-listings__listing">
+      <div class="embed-loader" style="--aspect-ratio: {{height}}/{{width}};">
+        <{{tag}} class="bonus-listings__graphic"></{{tag}}>
+      </div>
+    </div>
+    
+    <div class="bonus-listings__listing">
+      <div class="embed-loader" style="--aspect-ratio: {{height}}/{{width}};">
+        <{{tag}} class="bonus-listings__graphic"></{{tag}}>
+      </div>
+    </div>
+    
+    <div class="bonus-listings__listing">
+      <div class="embed-loader" style="--aspect-ratio: {{height}}/{{width}};">
+        <{{tag}} class="bonus-listings__graphic"></{{tag}}>
+      </div>
+    </div>
+  </div>
 </div>
