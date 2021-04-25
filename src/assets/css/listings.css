@@ -16,6 +16,7 @@
 .card {
   box-shadow: var(--card-shadow);
   background: hsl(0, 0%, 100%);
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -31,15 +32,14 @@
   transform: translateY(-2px);
 }
 
-.card__graphic {
-  /* aspect ratio stuff */
+.card__graphic-wrapper {
   border-top-left-radius: var(--card-radius);
   border-top-right-radius: var(--card-radius);
   overflow: hidden;
 }
 
 .card__primary-action {
-  border-top: 1px solid hsl(0, 0%, 90%);
+  border-top: 1px solid var(--card-shadow-color);
   display: block;
   font-size: 1.5em;
   font-weight: bold;

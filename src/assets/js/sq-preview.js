@@ -46,7 +46,9 @@ export class SqPreview extends HTMLElement {
     this.draw();
   }
 
-  play = () =>  {
+  play = () => {
+    if (this.isPlaying) return;
+    
     this.isPlaying = true;
     this.refresh();
     this.refreshInterval = setInterval(this.refresh, 500);

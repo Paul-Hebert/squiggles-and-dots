@@ -20,3 +20,55 @@ body {
 .stack > * + * {
   margin-top: 1.25em;
 }
+
+.embed-loader {
+  display: flex;
+  background: hsl(0, 0%, 100%);
+  position: relative;
+}
+
+.embed-loader::before, 
+.embed-loader::after {
+  content: '';
+  display: block;
+  z-index: 0;
+}
+
+.embed-loader::before {
+  position: relative;
+  padding-bottom: calc(100% * var(--aspect-ratio));
+}
+
+.embed-loader::after {
+  border-radius: 50%;
+  border-color: hsl(200, 60%, 40%);
+  border-top-color: hsl(200, 100%, 60%);
+  border-width: 0.6em;
+  border-style: solid;
+  position: absolute;
+  width: 4em;
+  height: 4em;
+  top: calc(50% - 2em);
+  left: calc(50% - 2em);
+  animation-name: spin;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.embed-loader > :first-child {
+  background: hsl(0, 0%, 100%);
+  position: absolute;
+  top: 0;
+  z-index: 1;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}

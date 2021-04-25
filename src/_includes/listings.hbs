@@ -11,7 +11,10 @@ styles:
 <ul class="listings">
   {{#each collections.art}}
   <li class="card">
-    <{{data.tag}} class="card__graphic"></{{data.tag}}>
+    <div class="card__graphic-wrapper embed-loader" style="--aspect-ratio: {{data.height}}/{{data.width}};">
+      <{{data.tag}} class="card__graphic">
+    </div>
+    </{{data.tag}}>
     <a href="{{url url}}" class="card__primary-action">
       {{data.title}}
     </a>
