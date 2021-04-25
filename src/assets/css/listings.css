@@ -7,17 +7,35 @@
   margin-top: 2em;
 }
 
+:root {
+  --card-radius: 0.2em;
+  --card-shadow-color: hsla(0, 0%, 0%, 0.1);
+  --card-shadow: 0 1px 1px 1px var(--card-shadow-color);
+}
+
 .card {
+  box-shadow: var(--card-shadow);
   background: hsl(0, 0%, 100%);
   display: flex;
   flex-direction: column;
   position: relative;
-  overflow: hidden;
-  border-radius: 0.2em;
+  border-radius: var(--card-radius);
+  transition-property: box-shadow, transform;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-out;
+  transform: scale(0.99);
+}
+
+.card:hover {
+  box-shadow: 0 1px 2px 3px hsla(0, 0%, 0%, 0.1);
+  transform: translateY(-2px);
 }
 
 .card__graphic {
   /* aspect ratio stuff */
+  border-top-left-radius: var(--card-radius);
+  border-top-right-radius: var(--card-radius);
+  overflow: hidden;
 }
 
 .card__primary-action {
@@ -30,10 +48,15 @@
 }
 
 .card__primary-action::before {
+  border-radius: var(--card-radius);
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+}
+
+.card__primary-action:focus::before {
+  box-shadow:0 0 0 0.5em hsla(0, 0%, 0%, 0.1);
 }
