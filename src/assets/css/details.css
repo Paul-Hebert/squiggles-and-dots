@@ -1,11 +1,17 @@
 .details {
   display: grid;
   gap: 1em;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1fr;
 }
 
 .details__preview {
-  flex-grow: 2;
+  text-align: center;
+}
+
+@media(min-width: 40em) {
+  .details {
+    grid-template-columns: 1fr 2fr;
+  }
 }
 
 .bonus-listings {
@@ -16,4 +22,8 @@
   display: grid;
   gap: 1em;
   grid-template-columns: repeat(auto-fit, minmax(18em, 1fr));
+}
+
+.bonus-listings__graphic {
+  cursor: pointer;
 }

@@ -4,6 +4,7 @@ import {
 } from "https://cdn.skypack.dev/@georgedoescode/generative-utils@1.0.0"; 100;
 
 export class SqSpikyBlobs extends SqSvg {
+  name = "Spiky Blobs";
   width = 200;
   height = 100;
 

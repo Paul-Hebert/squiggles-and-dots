@@ -7,6 +7,7 @@ const width = 200;
 const height = 100;
 
 export class SqForests extends SqSvg {
+  name = "Generative Forests";
   width = width;
   height = height;
 

@@ -13,6 +13,18 @@ export class SqSvg extends SqPreview {
   clear = () => {
     this.canvas.clear();
   }
+
+  toUrl = () => {
+    return "data:image/svg+xml;utf8," + this.canvas.svg();
+  }
+
+  download = () => {
+    const anchor = document.createElement('a');
+    anchor.setAttribute('download', this.name);
+    anchor.setAttribute("href", this.toUrl());
+    anchor.setAttribute('target', '_blank');
+    anchor.click();
+  }
 }
 
 customElements.define("sq-svg", SqSvg);

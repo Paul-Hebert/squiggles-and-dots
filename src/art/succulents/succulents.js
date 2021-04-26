@@ -4,6 +4,7 @@ import {
 } from "https://cdn.skypack.dev/@georgedoescode/generative-utils@1.0.0";
 
 export class SqSucculents extends SqSvg {
+  name = "Generative Succulents";
   width = 2000;
   height = 1000;
 

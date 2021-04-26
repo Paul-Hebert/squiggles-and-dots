@@ -13,6 +13,10 @@ h1 {
   font-size: 3em;
 }
 
+p {
+  line-height: 1.4;
+}
+
 .container,
 .container--min {
   margin:0 auto;
@@ -72,6 +76,7 @@ h1 {
   background: hsl(0, 0%, 100%);
   position: absolute;
   top: 0;
+  width: 100%;
   z-index: 1;
 }
 

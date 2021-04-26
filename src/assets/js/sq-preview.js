@@ -67,6 +67,10 @@ export class SqPreview extends HTMLElement {
   toggle = () =>  {
     this.isPlaying ? this.pause() : this.play();
   }
+
+  download = () => {
+    console.warn('toUrl function not set');
+  }
 }
 
 customElements.define("sq-preview", SqPreview);
