@@ -1,3 +1,12 @@
+:root {
+  --white: #fff;
+  
+  --interactive-hue: 203;
+  --interactive-saturation: 57%;
+  --interactive-lightness: 41%;
+  --color-interactive: hsl(var(--interactive-hue), var(--interactive-saturation), var(--interactive-lightness));
+}
+
 * {
   box-sizing: border-box;
   margin: 0;

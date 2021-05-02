@@ -1,0 +1,131 @@
+:root {
+  --button-color: var(--color-interactive); /* 203, 57%, 41% */
+  --button-color-hover: hsl(
+    var(--interactive-hue), 
+    var(--interactive-saturation), 
+    calc(var(--interactive-lightness) - 10%)
+  );
+  --button-color-active: hsl(
+    var(--interactive-hue), 
+    var(--interactive-saturation), 
+    calc(var(--interactive-lightness) - 15%)
+  );
+  --button-color-disabled: hsl(
+    var(--interactive-hue), 
+    calc(var(--interactive-saturation) - 40%), 
+    calc(var(--interactive-lightness) + 10%)
+  );
+
+  --button-border-color: hsl(
+    var(--interactive-hue), 
+    var(--interactive-saturation), 
+    calc(var(--interactive-lightness) + 20%)
+  );
+  --button-border-color-hover: hsl(
+    var(--interactive-hue), 
+    var(--interactive-saturation), 
+    var(--interactive-lightness)
+  );
+  --button-border-color-active: hsl(
+    var(--interactive-hue), 
+    var(--interactive-saturation), 
+    calc(var(--interactive-lightness) - 10%)
+  );
+  --button-border-color-disabled: hsl(
+    var(--interactive-hue), 
+    calc(var(--interactive-saturation) - 30%), 
+    80%
+  );
+
+  --button-bg-color: var(--white);
+  --button-bg-color-hover: hsl(
+    var(--interactive-hue), 
+    var(--interactive-saturation), 
+    95%
+  );
+  --button-bg-color-active: hsl(
+    var(--interactive-hue), 
+    var(--interactive-saturation), 
+    90%
+  );
+  --button-bg-color-disabled: hsl(
+    var(--interactive-hue), 
+    calc(var(--interactive-saturation) - 40%), 
+    90%
+  );
+  
+  --button-focus-color: hsl(
+    var(--interactive-hue), 
+    var(--interactive-saturation), 
+    80%
+  );
+}
+
+.button {
+  background-color: var(--button-bg-color);
+  border-radius: 0.2em;
+  border: var(--button-border-color)  0.1em solid;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1em;
+  height: 2.5em;
+  line-height: 1.5;
+  padding: 0.5em 1em;
+  text-decoration: none;
+  color: var(--button-color);
+  transition-property: background-color, border-color, box-shadow, color;
+  transition-timing-function: ease-out;
+  transition-duration: 0.2s;
+}
+
+.button:hover:not(:disabled) {
+  background-color: var(--button-bg-color-hover);
+  border-color: var(--button-border-color-hover);
+  color: var(--button-color-hover);
+}
+
+.button:active:not(:disabled) {
+  background-color: var(--button-bg-color-active);
+  border-color: var(--button-border-color-active);
+  color: var(--button-color-active);
+}
+
+button:disabled {
+  background-color: var(--button-bg-color-disabled);
+  border-color: var(--button-border-color-disabled);
+  color: var(--button-color-disabled);
+}
+
+/**
+ * These extra focus-related styles are to progressively enhance :focus-visible
+ * @see https://developer.paciellogroup.com/blog/2018/03/focus-visible-and-backwards-compatibility/
+ */
+
+button:focus { 
+  outline: none;
+  box-shadow: 0 0 0 0.25em var(--button-focus-color);
+}
+
+button:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
+button:focus-visible { 
+  outline: none;
+  box-shadow: 0 0 0 0.25em var(--button-focus-color);
+}
+
+.button-group {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.button-group__centered {
+  justify-content: center;
+}
+
+.button-group > * + * {
+  margin-left: 1em;
+}
