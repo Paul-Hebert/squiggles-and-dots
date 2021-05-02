@@ -7,7 +7,7 @@ export class SqSvg extends SqPreview {
   }
 
   addCanvas = () => {
-    return SVG().addTo(this).viewbox(0, 0, this.width, this.height);
+    return SVG().addTo(this).viewbox(0, 0, this.width, this.height).attr('class', 'canvas');
   }
 
   clear = () => {

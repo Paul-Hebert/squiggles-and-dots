@@ -2,12 +2,7 @@ const template = document.createElement("template");
 template.innerHTML = /*html*/`
   <style>
     :host { 
-      display: flex;
-    }
-    ::slotted(*) { 
-      background: #fff;
-      width: 100%;
-      height: auto;
+      display: block;
     }
   </style>
   <slot></slot>
