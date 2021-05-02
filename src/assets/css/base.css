@@ -2,7 +2,7 @@
   --white: #fff;
   
   --interactive-hue: 203;
-  --interactive-saturation: 57%;
+  --interactive-saturation: 80%;
   --interactive-lightness: 41%;
   --color-interactive: hsl(var(--interactive-hue), var(--interactive-saturation), var(--interactive-lightness));
 }

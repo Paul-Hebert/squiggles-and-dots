@@ -40,7 +40,7 @@
   --button-bg-color: var(--white);
   --button-bg-color-hover: hsl(
     var(--interactive-hue), 
-    var(--interactive-saturation), 
+    calc(var(--interactive-saturation) + 10%), 
     95%
   );
   --button-bg-color-active: hsl(
@@ -51,7 +51,7 @@
   --button-bg-color-disabled: hsl(
     var(--interactive-hue), 
     calc(var(--interactive-saturation) - 40%), 
-    90%
+    85%
   );
   
   --button-focus-color: hsl(
