@@ -4,6 +4,6 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.setDataDeepMerge(true);
 
   eleventyConfig.addCollection('art', function(collection) {
-    return collection.getFilteredByGlob('src/art/**/*.md');
+    return collection.getFilteredByGlob('src/art/**/!(example).md');
   });
 };
