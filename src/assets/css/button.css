@@ -12,7 +12,7 @@
   );
   --button-color-disabled: hsl(
     var(--interactive-hue), 
-    calc(var(--interactive-saturation) - 40%), 
+    calc(var(--interactive-saturation) - 60%), 
     calc(var(--interactive-lightness) + 10%)
   );
 
@@ -33,7 +33,7 @@
   );
   --button-border-color-disabled: hsl(
     var(--interactive-hue), 
-    calc(var(--interactive-saturation) - 30%), 
+    calc(var(--interactive-saturation) - 40%), 
     80%
   );
 
@@ -50,8 +50,8 @@
   );
   --button-bg-color-disabled: hsl(
     var(--interactive-hue), 
-    calc(var(--interactive-saturation) - 40%), 
-    85%
+    calc(var(--interactive-saturation) - 60%), 
+    90%
   );
   
   --button-focus-color: hsl(
@@ -127,6 +127,10 @@ button:focus-visible {
   justify-content: center;
 }
 
+.button-group .button {
+  margin-bottom: 0.75em;
+}
+
 .button-group > * + * {
-  margin-left: 1em;
+  margin-left: 0.75em;
 }

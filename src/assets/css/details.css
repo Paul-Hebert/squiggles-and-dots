@@ -8,7 +8,7 @@
   text-align: center;
 }
 
-@media(min-width: 40em) {
+@media(min-width: 48em) {
   .details {
     grid-template-columns: 1fr 2fr;
   }
