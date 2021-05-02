@@ -1,5 +1,5 @@
 ---
-title: Squiggles
+title: Squiggles And Dots
 slug: "squiggles"
 tag: "sq-squiggles"
 scripts:
@@ -8,4 +8,4 @@ width: 200
 height: 100
 ---
 
-A base boilerplate
+The name says it all.
