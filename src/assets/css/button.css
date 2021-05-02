@@ -94,6 +94,7 @@ button:disabled {
   background-color: var(--button-bg-color-disabled);
   border-color: var(--button-border-color-disabled);
   color: var(--button-color-disabled);
+  cursor: not-allowed;
 }
 
 /**
