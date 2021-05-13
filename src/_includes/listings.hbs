@@ -13,9 +13,8 @@ styles:
     {{#each collections.art}}
     <li class="card">
       <div class="card__graphic-wrapper embed-loader" style="--aspect-ratio: {{data.height}}/{{data.width}};">
-        <{{data.tag}} class="card__graphic">
+        <{{data.tag}} class="card__graphic"></{{data.tag}}>
       </div>
-      </{{data.tag}}>
       <a href="{{url url}}" class="card__primary-action">
         {{data.title}}
       </a>
