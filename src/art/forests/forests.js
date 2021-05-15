@@ -1,7 +1,5 @@
 import { SvgJsCanvas } from '../../assets/js/svg-js-canvas.js'
-import {
-  random
-} from "https://cdn.skypack.dev/@georgedoescode/generative-utils@1.0.0";
+import { random } from '../../assets/js/utils/random.js';
 
 const width = 200;
 const height = 100;
