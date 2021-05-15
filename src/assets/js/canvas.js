@@ -29,11 +29,11 @@ export class Canvas extends HTMLElement {
   }
 
   draw = () => {
-    console.error("Draw function not defined");
+    console.warn("Draw function not defined");
   }
 
   addCanvas = () => {
-    console.error('addCanvas not defined.');
+    console.warn('addCanvas not defined.');
   }
 
   refresh = () => {
