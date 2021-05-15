@@ -8,7 +8,7 @@ export class SqSucculents extends SvgCanvas {
   height = 1000;
 
   draw = () => {
-    let markup;
+    let markup = '';
 
     this.canvas.style.backgroundColor = hsla({
       h: random(0, 360),
@@ -47,7 +47,7 @@ export class SqSucculents extends SvgCanvas {
 customElements.define("sq-succulents", SqSucculents);
 
 function addSucculent({ x, y, radius }) {
-  let markup;
+  let markup = '';
   let currentSize = radius;
   let currentRotation = random(0, 360);
   const color = {
