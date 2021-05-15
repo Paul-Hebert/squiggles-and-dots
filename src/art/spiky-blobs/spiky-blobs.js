@@ -1,21 +1,23 @@
-import { SvgJsCanvas } from '../../assets/js/svg-js-canvas.js'
+import { SvgCanvas } from '../../assets/js/svg-canvas.js'
 import { random } from '../../assets/js/utils/random.js';
 
 
-export class SqSpikyBlobs extends SvgJsCanvas {
+export class SqSpikyBlobs extends SvgCanvas {
   name = "Spiky Blobs";
   width = 200;
   height = 100;
 
   draw = () => {
-    addSucculent(this.canvas, 100, 50, random(10, 48));
+    let markup = "";
+    markup += addBloc(100, 50, random(10, 48));
+    this.canvas.innerHTML = markup;
   }
 }
 
 customElements.define("sq-spiky-blobs", SqSpikyBlobs);
 
-function addSucculent(canvas, x, y, radius) {
-  const group = canvas.group();
+function addBloc(x, y, radius) {
+  let markup = '';
   let currentSize = radius;
   let currentRotation = random(0, 360);
   const color = {
@@ -26,7 +28,7 @@ function addSucculent(canvas, x, y, radius) {
   let sizeDecrease = 0.1;
 
   while (currentSize > 0) {
-    addLeaf(group, x, y, currentSize, currentRotation, color);
+    markup += addLeaf(x, y, currentSize, currentRotation, color);
     currentSize -= sizeDecrease;
     // sizeDecrease += 0.05;
     currentRotation += 25;
@@ -37,9 +39,11 @@ function addSucculent(canvas, x, y, radius) {
 
     if (currentRotation > 360) currentRotation -= 360;
   }
+
+  return markup;
 }
 
-function addLeaf(group, x, y, size, rotate, color) {
+function addLeaf(x, y, size, rotate, color) {
   const startPoint = `${x} ${y}`;
   const endPoint = `${x} ${y - size}`;
   const controlPointY = y - (size * 1) / 3;
@@ -47,21 +51,20 @@ function addLeaf(group, x, y, size, rotate, color) {
   const controlPoint1 = `${x - controlPointXDifferent} ${controlPointY}`;
   const controlPoint2 = `${x + controlPointXDifferent} ${controlPointY}`;
 
-  group
-    .path(
-      `
-      M${startPoint} 
-      Q${controlPoint1} ${endPoint}
-      Q${controlPoint2} ${startPoint}
-      Z
-    `
-    )
-    .fill(hsl(color))
-    .stroke({
-      width: 0.5,
-      color: strokeColor(color)
-    })
-    .rotate(rotate, x, y);
+  return `
+    <path
+      d="
+        M${startPoint} 
+        Q${controlPoint1} ${endPoint}
+        Q${controlPoint2} ${startPoint}
+        Z
+      "
+      fill="${hsl(color)}"
+      stroke-width="0.5"
+      stroke="${strokeColor(color)}"
+      transform="rotate(${rotate}, ${x}, ${y})"
+    />
+  `;
 }
 
 function hsl(c) {
