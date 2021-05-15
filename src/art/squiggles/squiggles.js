@@ -1,21 +1,24 @@
-import { SvgJsCanvas } from '../../assets/js/svg-js-canvas.js'
+import { SvgCanvas } from '../../assets/js/svg-canvas.js'
 import { random } from '../../assets/js/utils/random.js';
 
 
 
-export class SqSquiggles extends SvgJsCanvas {
+export class SqSquiggles extends SvgCanvas {
   name = "Squiggles";
   width = 200;
   height = 100;
 
   draw = () => {
+    let markup = '';
     for(let i = 0; i < random(80, 100); i++) {
       if(this.randomBool(0.15)) {
-        this.squiggle(this.canvas, this.width, this.height);
+        markup += this.squiggle(this.width, this.height);
       } else {
-        this.dot()
+        markup += this.dot()
       }
     }
+
+    this.canvas.innerHTML = markup;
   }
 
   randomBool(chance) {
@@ -32,18 +35,14 @@ export class SqSquiggles extends SvgJsCanvas {
     
   dot = () => {
     const size = this.randomBool(0.99) ? random(2, 5) : random(30, 70);
-    this.canvas
-      .circle(size)
-      .move(this.randomX(), this.randomY())
-      .fill(`hsl(
-        ${random(0, 360)},
-        ${random(20, 30)}%,
-        ${random(80, 90)}%
-      )`)
-      // .stroke({
-      //   color: '#fff',
-      //   width: 0.25
-      // });
+    return `
+      <circle
+        r="${size}"
+        cx="${this.randomX()}"
+        cy="${this.randomY()}"
+        fill="hsl(${random(0, 360)}, ${random(20, 30)}%, ${random(80, 90)}%)"
+      />
+    `;
   }
     
   squiggle = () => {
@@ -64,17 +63,14 @@ export class SqSquiggles extends SvgJsCanvas {
       points.push(`s${random(0, 20) * xDirection} ${random(0, 20) * yDirection}`);
     }
 
-    this.canvas
-      .path(points.join(' '))
-      .stroke({
-        width: random(1, 6),
-        color: `hsl(
-          ${random(0, 360)},
-          ${random(60, 80)}%,
-          ${random(80, 90)}%
-        )`
-      })
-      .fill('none');
+    return `
+      <path
+        d="${points.join(' ')}"
+        stroke-width="${random(1, 6)}"
+        stroke="hsl(${random(0, 360)}, ${random(60, 80)}%, ${random(80, 90)}%)"
+        fill="none"
+      />
+    `;
   }
 }
 
