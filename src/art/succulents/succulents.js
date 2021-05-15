@@ -1,15 +1,16 @@
-import { SvgJsCanvas } from '../../assets/js/svg-js-canvas.js'
-import {
-  random
-} from "https://cdn.skypack.dev/@georgedoescode/generative-utils@1.0.0";
+import { SvgCanvas } from '../../assets/js/svg-canvas.js'
+import { random } from '../../assets/js/utils/random.js';
 
-export class SqSucculents extends SvgJsCanvas {
+
+export class SqSucculents extends SvgCanvas {
   name = "Generative Succulents";
   width = 2000;
   height = 1000;
 
   draw = () => {
-    this.canvas.node.style.backgroundColor = hsla({
+    let markup;
+
+    this.canvas.style.backgroundColor = hsla({
       h: random(0, 360),
       s: random(0, 60),
       l: random(10, 100),
@@ -35,16 +36,18 @@ export class SqSucculents extends SvgJsCanvas {
   
       if (newSucculent.radius > minSucculentSize) {
         succulents.push(newSucculent);
-        addSucculent({...{canvas: this.canvas}, ...newSucculent});
+        markup += addSucculent({...newSucculent});
       }
     }
+
+    this.canvas.innerHTML = markup;
   }
 }
 
 customElements.define("sq-succulents", SqSucculents);
 
-function addSucculent({ canvas, x, y, radius }) {
-  const group = canvas.group();
+function addSucculent({ x, y, radius }) {
+  let markup;
   let currentSize = radius;
   let currentRotation = random(0, 360);
   const color = {
@@ -56,7 +59,7 @@ function addSucculent({ canvas, x, y, radius }) {
   let sizeDecrease = radius * 0.005;
 
   while (currentSize > 0) {
-    addLeaf(group, x, y, currentSize, currentRotation, color);
+    markup += addLeaf(x, y, currentSize, currentRotation, color);
     currentSize -= sizeDecrease;
     sizeDecrease *= 1.05;
     currentRotation += 25;
@@ -68,19 +71,22 @@ function addSucculent({ canvas, x, y, radius }) {
     if (currentRotation > 360) currentRotation -= 360;
   }
 
-  const circleSize = Math.min(1.5, radius / 10);
-  group
-    .circle(circleSize)
-    .x(x - circleSize / 2)
-    .y(y - circleSize / 2)
-    .fill(hsla(color))
-    .stroke({
-      width: 0.5,
-      color: strokeColor(color)
-    });
+  // TODO
+  // const circleSize = Math.min(1.5, radius / 10);
+  // group
+  //   .circle(circleSize)
+  //   .x(x - circleSize / 2)
+  //   .y(y - circleSize / 2)
+  //   .fill(hsla(color))
+  //   .stroke({
+  //     width: 0.5,
+  //     color: strokeColor(color)
+  //   });
+
+  return `<g>${markup}</g>`
 }
 
-function addLeaf(group, x, y, size, rotate, color) {
+function addLeaf(x, y, size, rotate, color) {
   const startPoint = `${x} ${y}`;
   const endPoint = `${x} ${y - size}`;
   const controlPointY = y - (size * 1) / 3;
@@ -88,21 +94,20 @@ function addLeaf(group, x, y, size, rotate, color) {
   const controlPoint1 = `${x - controlPointXDifferent} ${controlPointY}`;
   const controlPoint2 = `${x + controlPointXDifferent} ${controlPointY}`;
 
-  group
-    .path(
-      `
-      M${startPoint} 
-      Q${controlPoint1} ${endPoint}
-      Q${controlPoint2} ${startPoint}
-      Z
-    `
-    )
-    .fill(hsla(color))
-    .stroke({
-      width: 2,
-      color: strokeColor(color)
-    })
-    .rotate(rotate, x, y);
+  return `
+    <path
+      d="
+        M${startPoint}
+        Q${controlPoint1} ${endPoint}
+        Q${controlPoint2} ${startPoint}
+        Z
+      "
+      fill="${hsla(color)}"
+      stroke-width="${2}"
+      stroke="${strokeColor(color)}"
+      transform="rotate(${rotate} ${x} ${y})"
+    />
+  `;
 }
 
 function hsla(c) {
