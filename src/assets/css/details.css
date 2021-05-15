@@ -16,6 +16,7 @@
 
 .bonus-listings {
   background: hsl(0, 0%, 92%);
+  position: relative;
 }
 
 .bonus-listings__inner {
@@ -33,4 +34,10 @@
 
 .bonus-listings__loading .bonus-listings__graphic {
   opacity: 0;
+}
+
+.scroll-sentinal {
+  position: absolute;
+  bottom: 0;
+  height: 50vh;
 }
