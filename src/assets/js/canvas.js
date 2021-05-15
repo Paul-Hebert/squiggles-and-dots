@@ -8,7 +8,7 @@ template.innerHTML = /*html*/`
   <slot></slot>
 `;
 
-export class SqPreview extends HTMLElement {
+export class Canvas extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: "open" }).appendChild(
@@ -67,5 +67,3 @@ export class SqPreview extends HTMLElement {
     console.warn('toUrl function not set');
   }
 }
-
-customElements.define("sq-preview", SqPreview);

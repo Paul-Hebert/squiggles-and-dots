@@ -1,9 +1,9 @@
-import { SqPreview } from '../../assets/js/sq-preview.js'
+import { Canvas } from '../../assets/js/canvas.js'
 import {
   random
 } from "https://cdn.skypack.dev/@georgedoescode/generative-utils@1.0.0";
 
-export class SqIsometric extends SqPreview {
+export class SqIsometric extends Canvas {
   name = "Isometric";
   width = 200;
   height = 100;

@@ -1,7 +1,7 @@
 import { SVG } from "https://cdn.skypack.dev/@svgdotjs/svg.js";
-import { SqPreview } from './sq-preview.js';
+import { Canvas } from './canvas.js';
 
-export class SqSvg extends SqPreview {
+export class SvgCanvas extends Canvas {
   constructor() {
     super();
   }
@@ -26,5 +26,3 @@ export class SqSvg extends SqPreview {
     anchor.click();
   }
 }
-
-customElements.define("sq-svg", SqSvg);
