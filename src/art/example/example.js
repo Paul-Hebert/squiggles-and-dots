@@ -11,6 +11,10 @@ export class SqExample extends SvgJsCanvas {
       ${random(0, 100)}%,
       ${random(0, 100)}%
     )`;
+
+    let markup = '';
+
+    this.canvas.innerHTML = markup;
   }
 }
 

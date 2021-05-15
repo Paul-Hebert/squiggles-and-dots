@@ -12,7 +12,7 @@ export class SqForests extends SvgCanvas {
   draw = () => {
     const hue = random(0, 360);
   
-    this.innerHTML = `
+    this.canvas.innerHTML = `
       ${mountainLayer(hue)}
       ${forestLayer(hue)}
       ${mountainLayer(hue)}
@@ -24,7 +24,7 @@ export class SqForests extends SvgCanvas {
 customElements.define("sq-forests", SqForests);
 
 function forestLayer(hue) {
-  let markup;
+  let markup = '';
   let x = -20;
 
   const treePoints = [];
@@ -44,7 +44,7 @@ function forestLayer(hue) {
 }
 
 function addTree(x, hue) {
-  let markup;
+  let markup = '';
   const tree = {
     top: random(20, height - 30),
     bottom: height - random(0, 20),
@@ -76,47 +76,51 @@ function drawTree(x, tree, width, color) {
   while (y < tree.bottom) {
     const branchBottom = y + tree.branchHeight;
 
-    // markup += `
-    //   <polyline
-    //     points="
-    //       ${x - tree.branchWidth}, ${branchBottom}
-    //       ${x}, ${y}
-    //       ${x + tree.branchWidth}, ${branchBottom}
-    //     "
-    //     x1="${x}" y1="${y}"
-    //     x2="${x}" y2="${height}"
-    //     stroke-width="${width}"
-    //     stroke="${color}"
-    //     fill="none"
-    //   />
-    // `;
+    markup += `
+      <polyline
+        points="
+          ${x - tree.branchWidth}, ${branchBottom}
+          ${x}, ${y}
+          ${x + tree.branchWidth}, ${branchBottom}
+        "
+        x1="${x}" y1="${y}"
+        x2="${x}" y2="${height}"
+        stroke-width="${width}"
+        stroke="${color}"
+        fill="none"
+      />
+    `;
 
     y += tree.branchDistance;
   }
 
-  console.log('tree', markup)
   return markup;
 }
 
-function mountainLayer(svg, hue) {
-  return '';
-  // const layer = svg.group();
+function mountainLayer(hue) {
+  let markup = '';
 
-  // const mountainCount = random(1, 5);
+  const mountainCount = random(1, 5);
 
-  // for (let i = 0; i < mountainCount; i++) {
-  //   const xStart = random(-50, width - 100);
-  //   const xEnd = random(xStart + 50, width + 50);
-  //   const xMid = random(xStart, xEnd);
-  //   const mountain = layer
-  //     .polyline([
-  //       [xStart, height],
-  //       [xMid, random(-10, height - 20)],
-  //       [xEnd, height]
-  //     ])
-  //     .stroke({ width: 1, color: `hsl(${hue}, 10%, 30%)` })
-  //     .fill("hsl(0, 0%, 100%)");
-  // }
+  for (let i = 0; i < mountainCount; i++) {
+    const xStart = random(-50, width - 100);
+    const xEnd = random(xStart + 50, width + 50);
+    const xMid = random(xStart, xEnd);
+    markup += `
+      <polyline
+        points="
+          ${xStart}, ${height},
+          ${xMid}, ${random(-10, height - 20)},
+          ${xEnd}, ${height}
+        "
+        stroke="hsl(${hue}, 10%, 30%)"
+        stroke-width="1"
+        fill="hsl(0, 0%, 100%)"
+      />
+    `;
+  }
+
+  return `<g>${markup}</g>`;
 }
 
 /**
