@@ -1,4 +1,4 @@
-import { SvgCanvas } from '../../assets/js/svg-canvas.js'
+import { SvgJsCanvas } from '../../assets/js/svg-js-canvas.js'
 import {
   random
 } from "https://cdn.skypack.dev/@georgedoescode/generative-utils@1.0.0";
@@ -6,7 +6,7 @@ import {
 const width = 200;
 const height = 100;
 
-export class SqForests extends SvgCanvas {
+export class SqForests extends SvgJsCanvas {
   name = "Generative Forests";
   width = width;
   height = height;

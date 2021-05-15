@@ -1,9 +1,9 @@
-import { SvgCanvas } from '../../assets/js/svg-canvas.js'
+import { SvgJsCanvas } from '../../assets/js/svg-js-canvas.js'
 import {
   random
 } from "https://cdn.skypack.dev/@georgedoescode/generative-utils@1.0.0"; 100;
 
-export class SqSpikyBlobs extends SvgCanvas {
+export class SqSpikyBlobs extends SvgJsCanvas {
   name = "Spiky Blobs";
   width = 200;
   height = 100;

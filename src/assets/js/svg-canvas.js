@@ -1,4 +1,3 @@
-import { SVG } from "https://cdn.skypack.dev/@svgdotjs/svg.js";
 import { Canvas } from './canvas.js';
 
 export class SvgCanvas extends Canvas {
@@ -7,15 +6,24 @@ export class SvgCanvas extends Canvas {
   }
 
   addCanvas = () => {
-    return SVG().addTo(this).viewbox(0, 0, this.width, this.height).attr('class', 'canvas');
+    this.innerHTML += /* html */`
+      <svg
+        viewBox="0 0 ${this.width} ${this.height}"
+        class="canvas"
+         xmlns="http://www.w3.org/2000/svg"
+         version="1.1"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+      ></svg>
+    `;
+    return this.querySelector('svg');
   }
 
   clear = () => {
-    this.canvas.clear();
+    this.canvas.innerHTML = '';
   }
 
   toUrl = () => {
-    return "data:image/svg+xml;utf8," + this.canvas.svg();
+    return "data:image/svg+xml;utf8," + this.innerHTML;
   }
 
   download = () => {

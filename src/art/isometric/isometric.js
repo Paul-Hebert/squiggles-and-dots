@@ -1,9 +1,9 @@
-import { Canvas } from '../../assets/js/canvas.js'
+import { SvgCanvas } from '../../assets/js/svg-canvas.js'
 import {
   random
 } from "https://cdn.skypack.dev/@georgedoescode/generative-utils@1.0.0";
 
-export class SqIsometric extends Canvas {
+export class SqIsometric extends SvgCanvas {
   name = "Isometric";
   width = 200;
   height = 100;
@@ -11,17 +11,6 @@ export class SqIsometric extends Canvas {
   cubeWidth = 20;
   cubeHeight = 10;
   cubeDepth = 8;
-
-  addCanvas = () => {
-    this.innerHTML += /* html */`
-      <svg viewBox="0 0 200 100" class="canvas"></svg>
-    `;
-    return this.querySelector('svg');
-  }
-
-  clear = () => {
-    this.canvas.innerHTML = '';
-  }
 
   draw = () => {
     this.generateStyles();
