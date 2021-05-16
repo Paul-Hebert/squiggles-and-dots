@@ -10,9 +10,9 @@
   <link rel="stylesheet" href="/assets/css/base.css">
   <link rel="stylesheet" href="/assets/css/button.css">
 
-  {{#each styles}}
-  <link rel="stylesheet" href="{{this}}.css">
-  {{/each}}
+  {% for style in styles %}
+    <link rel="stylesheet" href="{{style}}.css">
+  {% endfor %}
 </head>
 
 <body>
@@ -20,12 +20,12 @@
     <a href="/">Squiggles and Dots</a>
   </header>
   <main>
-    {{{content}}}
+    {{content}}
   </main>
 
-  {{#each scripts}}
-    <script src="{{this}}.js" type="module"></script>
-  {{/each}}
+  {% for script in scripts %}
+    <script src="{{script}}.js" type="module"></script>
+  {% endfor %}
 </body>
 
 </html>

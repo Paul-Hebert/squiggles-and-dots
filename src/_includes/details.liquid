@@ -1,0 +1,40 @@
+---
+title: Succulents
+layout: base.liquid
+scripts:
+- /assets/js/details
+styles:
+- /assets/css/details
+---
+
+<section class="container details" aria-labelledby="details-heading">
+  <div class="details__description stack">
+    <h1 id="details-heading">{{title}}</h1>
+
+    {{content}}
+  </div>
+  <div class="details__preview stack">
+    <div class="ratio-box" style="--aspect-ratio: {{height}}/{{width}};">
+      <{{tag}} class="details__graphic"></{{tag}}>
+    </div>
+
+    <div class="button-group button-group__centered">
+      <button class="button js-refresh" autocomplete="off">Refresh</button>
+      <button class="button js-play" autocomplete="off">Play</button>
+      <button class="button js-pause" disabled autocomplete="off">Pause</button>
+      <button class="button js-download" autocomplete="off">Download</button>
+    </div>
+  </div>
+</section>
+
+{% comment %} TODO: Section heading {% endcomment %}
+<section class="bonus-listings">
+  <div class="container container--wide container--flush bonus-listings__inner js-bonus-listings">
+    {% for i in (1..9) %}
+      <div class="bonus-listings__listing">
+        <div class="ratio-box bonus-listings__loading" style="--aspect-ratio: {{height}}/{{width}};"></div>
+      </div>
+    {% endfor %}
+    
+  <div class="js-scroll-sentinel scroll-sentinal"></div>
+</div>
