@@ -29,12 +29,26 @@ styles:
 
 {% comment %} TODO: Section heading {% endcomment %}
 <section class="bonus-listings">
-  <div class="container container--wide container--flush bonus-listings__inner js-bonus-listings">
-    {% for i in (1..9) %}
-      <div class="bonus-listings__listing">
-        <div class="ratio-box bonus-listings__loading" style="--aspect-ratio: {{height}}/{{width}};"></div>
-      </div>
-    {% endfor %}
-    
-  <div class="js-scroll-sentinel scroll-sentinal"></div>
-</div>
+  {% if disableInfiniteScroll %}
+    <div class="container container--min stack">
+      <p>
+        Whew, this piece takes a long time to draw!
+      </p>
+      <p>
+        Infinite scrolling is disabled to keep your browser from crashing.
+        You can use the "Refresh" and "Play" buttons above to see more
+        variations.
+      </p>
+    </div>
+  {% else %}
+    <div class="container container--wide container--flush bonus-listings__inner js-bonus-listings">
+      {% for i in (1..9) %}
+        <div class="bonus-listings__listing">
+          <div class="ratio-box bonus-listings__loading" style="--aspect-ratio: {{height}}/{{width}};"></div>
+        </div>
+      {% endfor %}
+  
+      <div class="js-scroll-sentinel scroll-sentinal"></div>
+    </div>
+  {% endif %}
+</section>
