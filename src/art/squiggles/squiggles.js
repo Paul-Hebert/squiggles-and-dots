@@ -1,8 +1,6 @@
 import { SvgCanvas } from '../../assets/js/svg-canvas.js'
 import { random } from '../../assets/js/utils/random.js';
 
-
-
 export class SqSquiggles extends SvgCanvas {
   name = "Squiggles";
   width = 200;

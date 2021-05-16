@@ -56,7 +56,6 @@ function addTree(x, hue) {
   markup += drawTree(x, tree, 2, `hsl(0, 0%, 100%)`);
   markup += drawTree(x, tree, 1, `hsl(${hue}, 10%, 30%)`);
 
-  // console.log('tree2', markup)
   return `<g>${markup}</g>`;
 }
 

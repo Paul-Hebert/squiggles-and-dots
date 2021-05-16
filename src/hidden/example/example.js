@@ -1,6 +1,7 @@
-import { SvgCanvas } from '../../assets/js/svg-js-canvas.js'
+import { SvgCanvas } from '../../assets/js/svg-canvas.js'
+import { random } from '../../assets/js/utils/random.js';
 
-export class SqExample extends SvgJsCanvas {
+export class SqExample extends SvgCanvas {
   name = "Example";
   width = 200;
   height = 100;

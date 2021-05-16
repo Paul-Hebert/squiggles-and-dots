@@ -33,7 +33,6 @@ window.customElements.whenDefined(preview.localName).then(() => {
 
   let intersectionObserver = new IntersectionObserver(entries => {
     if (entries.some(entry => entry.intersectionRatio > 0)) {
-      console.log('intersect');
       if (animationFrame) window.cancelAnimationFrame(animationFrame);
       animationFrame = window.requestAnimationFrame(() => { lazyLoadBonusListings(20) });
     }
