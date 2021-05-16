@@ -13,7 +13,7 @@ export class SqIsometric extends SvgCanvas {
   draw = () => {
     this.generateStyles();
 
-    let point = {x: 100, y: 20};
+    let point = {x: 100, y: 34};
 
     this.cubeRow(point, 1)
 
