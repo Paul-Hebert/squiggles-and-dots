@@ -13,7 +13,7 @@ export class SqSquares extends SvgCanvas {
       ${random(20, 60)}%
     )`;
 
-    let gridSize = random(5, 15);
+    let gridSize = Math.round(random(5, 15));
     let size = this.width/gridSize;
     
     let minLines = 5
@@ -22,9 +22,18 @@ export class SqSquares extends SvgCanvas {
     let baseStrokeWidth = size / (this.lineCount * 10);
     this.strokeWidth = random(baseStrokeWidth * 0.5, baseStrokeWidth * 1.5);
 
-    let markup = '';
+    let markup = /*html*/`
+      <rect
+        width="${this.width}"
+        height="${this.height}"
+        stroke="${this.hue}"
+        stroke-width="${this.strokeWidth * 2}"
+        fill="none"
+      />
+    `;
 
     for(let row = 0; row < gridSize; row++) {
+      markup += `<g>`;
       for(let col = 0; col < gridSize; col++) {
         markup += this.addSection(
           col * size, 
@@ -33,6 +42,7 @@ export class SqSquares extends SvgCanvas {
           size
         );
       }
+      markup += `</g>`;
     }
 
     // Uncomment to test one big square
@@ -53,12 +63,10 @@ export class SqSquares extends SvgCanvas {
 
     const endSize = this.strokeWidth;
     const sizeDifference = size - endSize;
-    console.log('sizeDifference', sizeDifference)
 
     for(let i = 0; i < this.lineCount; i++) {
       const shrinkage = (i/this.lineCount) * sizeDifference;
       const currentSize = size - shrinkage;
-      console.log(shrinkage, currentSize);
 
       markup += /*html*/`
         <rect 
