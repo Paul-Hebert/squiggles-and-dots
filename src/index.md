@@ -1,8 +1,9 @@
 ---
 title: Squiggles and Dots
+subhead: A generative art playground by Paul Hebert.
 layout: listings.liquid
 ---
 
-# Squiggles and Dots
+Each art piece below was generated using an algorithm written in JavaScript. Since these algorithms incorporate randomness, each art piece has a near-infinite number of potential variations.
 
-_A generative art playground by Paul Hebert_
+Hover or click on an art piece below to view more variations.

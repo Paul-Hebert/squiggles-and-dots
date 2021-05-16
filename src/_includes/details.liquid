@@ -9,7 +9,12 @@ styles:
 
 <section class="container details" aria-labelledby="details-heading">
   <div class="details__description stack">
-    <h1 id="details-heading">{{title}}</h1>
+    <div class="heading-block">
+      <h1 id="details-heading">{{title}}</h1>
+      {% if subhead %}
+        <p>{{subhead}}</p>
+      {% endif %}
+    </div>
 
     {{content}}
 

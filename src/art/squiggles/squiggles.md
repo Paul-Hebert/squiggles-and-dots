@@ -1,5 +1,6 @@
 ---
 title: Squiggles And Dots
+subhead: The name says it all.
 slug: "squiggles"
 tag: "sq-squiggles"
 scripts:
@@ -8,4 +9,3 @@ width: 200
 height: 100
 ---
 
-The name says it all.

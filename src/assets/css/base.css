@@ -18,12 +18,18 @@ body {
   margin: 0 auto;
 }
 
-h1 {
+p {
+  line-height: 1.4;
+}
+
+.heading-block h1 {
   font-size: 3em;
 }
 
-p {
-  line-height: 1.4;
+.heading-block p {
+  font-style: italic;
+  font-size: 1.5em;
+  margin-top: 0.3em;
 }
 
 .container,
