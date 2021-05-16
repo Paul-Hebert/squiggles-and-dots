@@ -29,15 +29,17 @@ window.customElements.whenDefined(preview.localName).then(() => {
     playButton.disabled = false;
   });
 
-  lazyLoadBonusListings();
+  if(sentinel) {
+    lazyLoadBonusListings();
 
-  let intersectionObserver = new IntersectionObserver(entries => {
-    if (entries.some(entry => entry.intersectionRatio > 0)) {
-      if (animationFrame) window.cancelAnimationFrame(animationFrame);
-      animationFrame = window.requestAnimationFrame(() => { lazyLoadBonusListings(20) });
-    }
-  });
-  intersectionObserver.observe(sentinel);
+    let intersectionObserver = new IntersectionObserver(entries => {
+      if (entries.some(entry => entry.intersectionRatio > 0)) {
+        if (animationFrame) window.cancelAnimationFrame(animationFrame);
+        animationFrame = window.requestAnimationFrame(() => { lazyLoadBonusListings(20) });
+      }
+    });
+    intersectionObserver.observe(sentinel);
+  }
 });
 
 function lazyLoadBonusListings(newCount = 0) {
