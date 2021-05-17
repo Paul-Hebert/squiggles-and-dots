@@ -58,7 +58,8 @@ export class SqSquares extends SvgCanvas {
 
   addSection = (x, y, size) => {
     const cushion = size * 1 / 10;
-    const innerPoint = random(cushion, size - cushion);
+    const innerPointX = random(cushion, size - cushion);
+    const innerPointY = random(cushion, size - cushion);
     let markup = '';
 
     const endSize = this.strokeWidth;
@@ -70,8 +71,8 @@ export class SqSquares extends SvgCanvas {
 
       markup += /*html*/`
         <rect 
-          x="${x + (innerPoint / this.lineCount * i)}"
-          y="${y + (innerPoint / this.lineCount * i)}"
+          x="${x + (innerPointX / this.lineCount * i)}"
+          y="${y + (innerPointY / this.lineCount * i)}"
           width="${currentSize}"
           height="${currentSize}"
           stroke="${this.hue}"
