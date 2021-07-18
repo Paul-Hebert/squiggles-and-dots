@@ -23,7 +23,60 @@ export class SqCurves3 extends SvgCanvas {
     let baseStrokeWidth = size / (this.lineCount * 5);
     this.strokeWidth = random(baseStrokeWidth * 0.5, baseStrokeWidth * 1.5);
 
-    let markup = '';
+    this.straightId = nanoid();
+    this.curveId = nanoid();
+    const clipId = nanoid();
+
+    let clipPath = `
+      <clipPath id="${clipId}">
+        <rect
+          x="${this.strokeWidth / -2}"
+          y="${this.strokeWidth / -2}"
+          width="${size + this.strokeWidth}"
+          height="${size + this.strokeWidth}"
+          fill="none"
+        />
+      </clipPath>
+    `;
+    
+    let straightLines = '';
+    let curveLines = '';
+    const sharedAttributes = `
+      stroke="${this.stroke}"
+      stroke-width="${this.strokeWidth}"
+      fill="none"
+    `
+
+    for (let i = this.lineCount; i >= 0; i--) {
+      const fractionSize = (i / this.lineCount) * size;
+
+      straightLines += /*html*/`
+        <line
+          x1="0"
+          x2="${0 + size}"
+          y1="${fractionSize}"
+          y2="${fractionSize}"
+          id="${this.straightId}"
+          ${sharedAttributes}
+        />
+      `;
+      curveLines += /*html*/`
+        <circle
+          cx="0"
+          cy="0"
+          r="${fractionSize}"
+          ${sharedAttributes}
+        />
+      `;
+    }
+
+    let markup = /*html*/`
+      <defs>
+        ${clipPath}
+        <g clip-path="url(#${clipId})" id="${this.straightId}">${straightLines}</g>
+        <g clip-path="url(#${clipId})" id="${this.curveId}">${curveLines}</g>
+      </defs>
+    `;
 
     for(let row = 0; row < gridSize; row++) {
       markup += `<g>`;
@@ -37,78 +90,25 @@ export class SqCurves3 extends SvgCanvas {
       markup += `</g>`;
     }
 
-    // Uncomment to test one big curve
-    // markup = this.addSection(
-    //   0, 
-    //   0, 
-    //   this.height
-    // );
-
     this.canvas.innerHTML = markup;
   }
 
   addSection = (col, row, size) => {
     let x = col * size;
     let y = row * size;
-    let id = `clip-${nanoid()}-${row}-${col}`
 
     let centerX = x + (size / 2);
     let centerY = y + (size / 2);
 
-    let markup = /* html */`
-        <clipPath id="${id}">
-          <rect
-            x="${x - this.strokeWidth / 2}"
-            y="${y - this.strokeWidth / 2}"
-            width="${size + this.strokeWidth}"
-            height="${size + this.strokeWidth}"
-            fill="none"
-          />
-      </clipPath>
-    `;
+    const transform = `transform="rotate(${90 * Math.round(random(0, 3))} ${centerX} ${centerY})"`
 
     const isLine = random(0, 4) < 1;
+    const useId = isLine ? this.straightId : this.curveId;
 
-    const sharedAttributes = `
-      stroke="${this.stroke}"
-      stroke-width="${this.strokeWidth}"
-      clip-path="url(#${id})"
-      fill="none"
-    `
-
-    for (let i = this.lineCount; i >= 0; i--) {
-      const fractionSize = (i / this.lineCount) * size;
-
-      if (isLine) {
-        markup += /*html*/`
-          <line
-            x1="${x}"
-            x2="${x + size}"
-            y1="${y + fractionSize}"
-            y2="${y + fractionSize}"
-            ${sharedAttributes}
-          />
-        `;
-      } else {
-        markup += /*html*/`
-          <circle
-            cx="${x}"
-            cy="${y}"
-            r="${fractionSize}"
-            ${sharedAttributes}
-          />
-        `;
-      }
+    return /*html*/`
+      <use x="${x}" y="${y}" xlink:href="#${useId}" ${transform} />
+    `;
     }
-
-    // Uncomment to test without rotations
-    // return `<g
-    // >${markup}</g>`;
-
-    return `<g
-      transform="rotate(${90 * Math.round(random(0, 3))} ${centerX} ${centerY})"
-    >${markup}</g>`;
-  }
 }
 
 customElements.define("sq-curves-3", SqCurves3);
