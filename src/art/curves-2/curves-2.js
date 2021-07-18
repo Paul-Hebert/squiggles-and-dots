@@ -1,5 +1,6 @@
 import { SvgCanvas } from '../../assets/js/svg-canvas.js'
 import { random } from '../../assets/js/utils/random.js';
+import { nanoid } from '../../assets/js/utils/nanoid.js';
 
 export class SqCurves2 extends SvgCanvas {
   name = "SqCurves2";
@@ -49,7 +50,7 @@ export class SqCurves2 extends SvgCanvas {
   addSection = (col, row, size) => {
     let x = col * size;
     let y = row * size;
-    let id = `clip-${row}-${col}`
+    let id = `clip-${nanoid()}-${row}-${col}`
 
     let markup = /* html */`
         <clipPath id="${id}">
