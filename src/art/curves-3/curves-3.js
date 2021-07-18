@@ -11,7 +11,7 @@ export class SqCurves3 extends SvgCanvas {
     this.stroke = `hsl(
       ${random(0, 360)},
       ${random(10, 100)}%,
-      ${random(20, 80)}%
+      ${random(20, 50)}%
     )`;
 
     let gridSize = Math.round(random(5, 15));
@@ -23,19 +23,29 @@ export class SqCurves3 extends SvgCanvas {
     let baseStrokeWidth = size / (this.lineCount * 5);
     this.strokeWidth = random(baseStrokeWidth * 0.5, baseStrokeWidth * 1.5);
 
-    this.straightId = nanoid();
-    this.curveId = nanoid();
-    const clipId = nanoid();
+    this.straightId = 'a' + nanoid();
+    this.curveId = 'a' + nanoid();
+    const bgId = 'a' + nanoid();
+    const clipId = 'a' + nanoid();
 
-    let clipPath = `
+    const bgRect = `
+      <rect
+        x="${this.strokeWidth / -2}"
+        y="${this.strokeWidth / -2}"
+        width="${size + this.strokeWidth}"
+        height="${size + this.strokeWidth}"
+        fill="none"
+        id="${bgId}"
+      />
+    `;
+
+    const usedRect = /* html */`
+      <use xlink:href="#${bgId}"></use>
+    `;
+
+    const clipPath = `
       <clipPath id="${clipId}">
-        <rect
-          x="${this.strokeWidth / -2}"
-          y="${this.strokeWidth / -2}"
-          width="${size + this.strokeWidth}"
-          height="${size + this.strokeWidth}"
-          fill="none"
-        />
+        ${usedRect}
       </clipPath>
     `;
     
@@ -72,9 +82,16 @@ export class SqCurves3 extends SvgCanvas {
 
     let markup = /*html*/`
       <defs>
+        ${bgRect}
         ${clipPath}
-        <g clip-path="url(#${clipId})" id="${this.straightId}">${straightLines}</g>
-        <g clip-path="url(#${clipId})" id="${this.curveId}">${curveLines}</g>
+        <g clip-path="url(#${clipId})" id="${this.straightId}">
+          ${usedRect}
+          ${straightLines}
+        </g>
+        <g clip-path="url(#${clipId})" id="${this.curveId}">
+          ${usedRect}
+          ${curveLines}
+        </g>
       </defs>
     `;
 
