@@ -58,10 +58,10 @@ export class SqCurves3 extends SvgCanvas {
     let markup = /* html */`
         <clipPath id="${id}">
           <rect
-            x="${x}"
-            y="${y}"
-            width="${size}"
-            height="${size}"
+            x="${x - this.strokeWidth / 2}"
+            y="${y - this.strokeWidth / 2}"
+            width="${size + this.strokeWidth}"
+            height="${size + this.strokeWidth}"
             fill="none"
           />
       </clipPath>
@@ -101,6 +101,7 @@ export class SqCurves3 extends SvgCanvas {
       }
     }
 
+    // Uncomment to test without rotations
     // return `<g
     // >${markup}</g>`;
 
