@@ -25,27 +25,16 @@ export class SqCurves3 extends SvgCanvas {
 
     this.straightId = 'a' + nanoid();
     this.curveId = 'a' + nanoid();
-    const bgId = 'a' + nanoid();
     const clipId = 'a' + nanoid();
-
-    const bgRect = `
-      <rect
-        x="${this.strokeWidth / -2}"
-        y="${this.strokeWidth / -2}"
-        width="${size + this.strokeWidth}"
-        height="${size + this.strokeWidth}"
-        fill="none"
-        id="${bgId}"
-      />
-    `;
-
-    const usedRect = /* html */`
-      <use xlink:href="#${bgId}"></use>
-    `;
 
     const clipPath = `
       <clipPath id="${clipId}">
-        ${usedRect}
+        <rect
+          x="${this.strokeWidth / -2}"
+          y="${this.strokeWidth / -2}"
+          width="${size + this.strokeWidth}"
+          height="${size + this.strokeWidth}"
+        />
       </clipPath>
     `;
     
@@ -54,7 +43,6 @@ export class SqCurves3 extends SvgCanvas {
     const sharedAttributes = `
       stroke="${this.stroke}"
       stroke-width="${this.strokeWidth}"
-      fill="none"
     `
 
     for (let i = this.lineCount; i >= 0; i--) {
@@ -67,6 +55,7 @@ export class SqCurves3 extends SvgCanvas {
           y1="${fractionSize}"
           y2="${fractionSize}"
           id="${this.straightId}"
+          fill="none"
           ${sharedAttributes}
         />
       `;
@@ -76,20 +65,25 @@ export class SqCurves3 extends SvgCanvas {
           cy="0"
           r="${fractionSize}"
           ${sharedAttributes}
+          fill="#fff"
         />
       `;
     }
 
     let markup = /*html*/`
       <defs>
-        ${bgRect}
         ${clipPath}
         <g clip-path="url(#${clipId})" id="${this.straightId}">
-          ${usedRect}
+          <rect
+            x="0"
+            y="0"
+            width="${size}"
+            height="${size}"
+            fill="#fff"
+          />
           ${straightLines}
         </g>
         <g clip-path="url(#${clipId})" id="${this.curveId}">
-          ${usedRect}
           ${curveLines}
         </g>
       </defs>
