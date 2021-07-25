@@ -16,4 +16,13 @@ function random() {
   }
 }
 
-export { random };
+function randomBool(chance = 0.5) {
+  return Boolean(Math.random() <= chance);
+}
+
+// https://stackoverflow.com/a/4550514/7816145
+function randomItemInArray(array) {
+  return array[Math.floor(Math.random() * array.length)];
+}
+
+export { random, randomBool, randomItemInArray };
