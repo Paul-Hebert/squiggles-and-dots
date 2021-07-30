@@ -1,5 +1,5 @@
 import { SvgCanvas } from '../../assets/js/svg-canvas.js'
-import { random } from '../../assets/js/utils/random.js';
+import { random, randomBool, randomItemInArray } from '../../assets/js/utils/random.js';
 import { nanoid } from '../../assets/js/utils/nanoid.js';
 
 export class SqCurves4 extends SvgCanvas {
@@ -8,32 +8,138 @@ export class SqCurves4 extends SvgCanvas {
   height = this.width;
 
   draw = () => {
-    this.stroke = `hsl(
-      ${random(0, 360)},
-      ${random(10, 100)}%,
-      ${random(20, 50)}%
-    )`;
-
-    let gridSize = Math.round(random(5, 15));
-    let size = this.width/gridSize;
+    this.initConfigs();
     
-    let minLines = 5
+    let markup = this.buildTiles(this.size);
 
-    this.lineCount = Math.round(random(minLines, minLines + (size / 10)));
-    let baseStrokeWidth = size / (this.lineCount * 5);
-    this.strokeWidth = random(baseStrokeWidth * 0.5, baseStrokeWidth * 1.5);
+    let state = {
+      x: 0,
+      y: 0,
+      axis: 'x',
+      trend: 1,
+    }
+    const count = 1000;
 
-    this.straightId = 'a' + nanoid();
-    this.curveId = 'a' + nanoid();
+    for (let i = 0; i < count; i++) {
+      let nextState = this.getNextPosition(state); 
+
+      markup += this.addSection({
+        col: state.x,
+        row: state.y,
+        isLine: nextState.isLine,
+        rotate: nextState.rotate,
+        count: i
+      });
+
+      state = nextState;
+    }
+
+    this.canvas.innerHTML = markup;
+  }
+
+  getNextPosition(state) {
+    let possiblePositions = [];
+
+    if (state.axis === 'x') {
+      if (state.y > 0) {
+        // turn up
+        possiblePositions.push({
+          y: state.y - 1,
+          x: state.x,
+          axis: 'y',
+          trend: -1,
+          isLine: false,
+          rotate: state.trend === 1 ? 0 : 90
+        });
+      }
+      if (state.y < this.gridSize - 1) {
+        // turn down
+        possiblePositions.push({
+          y: state.y + 1,
+          x: state.x,
+          axis: 'y',
+          trend: 1,
+          isLine: false,
+          rotate: state.trend === 1 ? 270 : 180
+        });
+      }
+      if ((state.x < this.gridSize - 1 && state.x > 0)) {
+        // go straight (horizontally)
+        possiblePositions.push({
+          y: state.y,
+          x: state.x + state.trend,
+          axis: 'y',
+          trend: state.trend,
+          isLine: true,
+          rotate: 0
+        });
+      }
+    } else {
+      if (state.x > 0) {
+        // turn left
+        possiblePositions.push({
+          x: state.x - 1,
+          y: state.y,
+          axis: 'x',
+          trend: -1,
+          isLine: false,
+          rotate: state.trend === 1 ? 0 : 270
+        });
+      }
+      if (state.x < this.gridSize - 1) {
+        // turn right
+        possiblePositions.push({
+          x: state.x + 1,
+          y: state.y,
+          axis: 'x',
+          trend: 1,
+          isLine: false,
+          rotate: state.trend === 1 ? 90 : 180
+        });
+      }
+      if ((state.y < this.gridSize - 1 && state.y > 0)) {
+        // go straight (vertically)
+        possiblePositions.push({
+          x: state.x,
+          y: state.y + state.trend,
+          axis: 'x',
+          trend: state.trend,
+          isLine: true,
+          rotate: 90
+        });
+      }
+    }
+
+    return randomItemInArray(possiblePositions)
+  }
+
+  addSection = ({ col, row, isLine, rotate, count}) => {
+    let x = col * this.size;
+    let y = row * this.size;
+
+    let centerX = x + (this.size / 2);
+    let centerY = y + (this.size / 2);
+
+    const transform = `transform="rotate(${rotate} ${centerX} ${centerY})"`
+
+    const useId = isLine ? this.straightId : this.curveId;
+
+    return /*html*/`
+      <use x="${x}" y="${y}" xlink:href="#${useId}" ${transform}/>
+      <!--<text x="${x}" y="${y}" style="font-size: ${this.size/2}px">${count}${isLine ? 'l' : 'c'}</text>-->
+    `;
+  }
+
+  buildTiles() {
     const clipId = 'a' + nanoid();
 
     const clipPath = `
       <clipPath id="${clipId}">
         <rect
-          x="${this.strokeWidth / -2}"
-          y="${this.strokeWidth / -2}"
-          width="${size + this.strokeWidth}"
-          height="${size + this.strokeWidth}"
+          x="0"
+          y="0"
+          width="${this.size}"
+          height="${this.size}"
         />
       </clipPath>
     `;
@@ -43,15 +149,17 @@ export class SqCurves4 extends SvgCanvas {
     const sharedAttributes = `
       stroke="${this.stroke}"
       stroke-width="${this.strokeWidth}"
+      stroke-linecap="round"
     `
 
     for (let i = this.lineCount; i >= 0; i--) {
-      const fractionSize = (i / this.lineCount) * size;
+      const halfStroke = this.strokeWidth / 2;
+      const fractionSize = halfStroke + (i / this.lineCount) * (this.size - this.strokeWidth);
 
       straightLines += /*html*/`
         <line
           x1="0"
-          x2="${0 + size}"
+          x2="${0 + this.size}"
           y1="${fractionSize}"
           y2="${fractionSize}"
           id="${this.straightId}"
@@ -70,15 +178,15 @@ export class SqCurves4 extends SvgCanvas {
       `;
     }
 
-    let markup = /*html*/`
+    return /*html*/`
       <defs>
         ${clipPath}
-        <g clip-path="url(#${clipId})" id="${this.straightId}">
+        <g id="${this.straightId}">
           <rect
             x="0"
             y="0"
-            width="${size}"
-            height="${size}"
+            width="${this.size}"
+            height="${this.size}"
             fill="#fff"
           />
           ${straightLines}
@@ -88,66 +196,26 @@ export class SqCurves4 extends SvgCanvas {
         </g>
       </defs>
     `;
-
-    let posX = 0;
-    let posY = 0;
-    let direction = 0;
-
-    for (let i = 0; i < 10000; i++) {
-      const isLine = random(0, 4) < 1;
-
-      markup += `<g>`;
-        markup += this.addSection(
-          posX, 
-          posY, 
-          size,
-          direction,
-          isLine
-        );
-      markup += `</g>`;
-
-      if (!isLine) {
-        direction++;
-
-        if(direction > 3) {
-          direction = 0;
-        }
-      }
-
-      switch (direction){
-        case 0:
-          posX++;
-        case 1:
-          posY++;
-        case 2:
-          posX--;
-        case 3:
-          posY--;
-      }
-
-      if (direction % 2 === 0) {
-        posX++;
-      } else {
-        posY++;
-      }
-    }
-
-    this.canvas.innerHTML = markup;
   }
 
-  addSection = (col, row, size, direction, isLine) => {
-    let x = col * size;
-    let y = row * size;
+  initConfigs() {
+    this.stroke = `hsl(
+      ${random(0, 360)},
+      ${random(10, 100)}%,
+      ${random(20, 50)}%
+    )`;
 
-    let centerX = x + (size / 2);
-    let centerY = y + (size / 2);
+    this.gridSize = Math.round(random(5, 15));
+    this.size = this.width / this.gridSize;
+    
+    let minLines = 5
 
-    const transform = `transform="rotate(${90 * direction} ${centerX} ${centerY})"`
-    const useId = isLine ? this.straightId : this.curveId;
+    this.lineCount = Math.round(random(minLines, minLines + (this.size / 10)));
+    let baseStrokeWidth = this.size / (this.lineCount * 5);
+    this.strokeWidth = random(baseStrokeWidth * 0.5, baseStrokeWidth * 1.5);
 
-    return /*html*/`
-      <use x="${x}" y="${y}" xlink:href="#${useId}" ${transform} />
-    `;
+    this.straightId = 'a' + nanoid();
+    this.curveId = 'a' + nanoid();
   }
 }
 
