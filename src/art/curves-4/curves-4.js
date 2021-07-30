@@ -18,18 +18,23 @@ export class SqCurves4 extends SvgCanvas {
       axis: 'x',
       trend: 1,
     }
-    const count = 1000;
+    const count = 20;
 
     for (let i = 0; i < count; i++) {
       let nextState = this.getNextPosition(state); 
 
-      markup += this.addSection({
+      const nextSection = this.addSection({
         col: state.x,
         row: state.y,
         isLine: nextState.isLine,
         rotate: nextState.rotate,
         count: i
-      });
+      })
+
+      console.log(nextState);
+      console.log(nextSection);
+
+      markup += nextSection;
 
       state = nextState;
     }
@@ -44,6 +49,7 @@ export class SqCurves4 extends SvgCanvas {
       if (state.y > 0) {
         // turn up
         possiblePositions.push({
+          nickname: 'turn up',
           y: state.y - 1,
           x: state.x,
           axis: 'y',
@@ -55,6 +61,7 @@ export class SqCurves4 extends SvgCanvas {
       if (state.y < this.gridSize - 1) {
         // turn down
         possiblePositions.push({
+          nickname: 'turn down',
           y: state.y + 1,
           x: state.x,
           axis: 'y',
@@ -66,9 +73,10 @@ export class SqCurves4 extends SvgCanvas {
       if ((state.x < this.gridSize - 1 && state.x > 0)) {
         // go straight (horizontally)
         possiblePositions.push({
+          nickname: 'straight horizontal',
           y: state.y,
           x: state.x + state.trend,
-          axis: 'y',
+          axis: 'x',
           trend: state.trend,
           isLine: true,
           rotate: 0
@@ -78,6 +86,7 @@ export class SqCurves4 extends SvgCanvas {
       if (state.x > 0) {
         // turn left
         possiblePositions.push({
+          nickname: 'turn left',
           x: state.x - 1,
           y: state.y,
           axis: 'x',
@@ -89,6 +98,7 @@ export class SqCurves4 extends SvgCanvas {
       if (state.x < this.gridSize - 1) {
         // turn right
         possiblePositions.push({
+          nickname: 'turn right',
           x: state.x + 1,
           y: state.y,
           axis: 'x',
@@ -100,9 +110,10 @@ export class SqCurves4 extends SvgCanvas {
       if ((state.y < this.gridSize - 1 && state.y > 0)) {
         // go straight (vertically)
         possiblePositions.push({
+          nickname: 'straight vertical',
           x: state.x,
           y: state.y + state.trend,
-          axis: 'x',
+          axis: 'y',
           trend: state.trend,
           isLine: true,
           rotate: 90
@@ -214,8 +225,8 @@ export class SqCurves4 extends SvgCanvas {
     let baseStrokeWidth = this.size / (this.lineCount * 5);
     this.strokeWidth = random(baseStrokeWidth * 0.5, baseStrokeWidth * 1.5);
 
-    this.straightId = 'a' + nanoid();
-    this.curveId = 'a' + nanoid();
+    this.straightId = 'line-' + nanoid();
+    this.curveId = 'curve-' + nanoid();
   }
 }
 
