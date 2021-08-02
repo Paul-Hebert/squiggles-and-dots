@@ -18,23 +18,20 @@ export class SqCurves4 extends SvgCanvas {
       axis: 'x',
       trend: 1,
     }
-    const count = 20;
+    const count = 500;
 
     for (let i = 0; i < count; i++) {
       let nextState = this.getNextPosition(state); 
 
-      const nextSection = this.addSection({
+      markup += this.addSection({
         col: state.x,
         row: state.y,
         isLine: nextState.isLine,
         rotate: nextState.rotate,
         count: i
-      })
+      });
 
-      console.log(nextState);
-      console.log(nextSection);
-
-      markup += nextSection;
+      this.grid[state.y][state.x] = this.grid[state.y][state.x] + 1;
 
       state = nextState;
     }
@@ -120,7 +117,27 @@ export class SqCurves4 extends SvgCanvas {
         });
       }
     }
+    
+    // TODO: Confirm this is working
+    // It should be giving preference to squares that have been visited less often
+    // Is this having the unintended side-effect of walling off areas?
+    let minRepetitions = null;
 
+    possiblePositions.forEach(position => {
+      const repetitions = this.grid[position.y][position.x];
+      if (minRepetitions === null) {
+        minRepetitions = repetitions
+      } else if (repetitions < minRepetitions) {
+        minRepetitions = repetitions;
+      }
+    });
+
+    possiblePositions.filter(position => {
+      const repetitions = this.grid[position.y][position.x];
+
+      return repetitions === minRepetitions;
+    })
+    
     return randomItemInArray(possiblePositions)
   }
 
@@ -135,22 +152,30 @@ export class SqCurves4 extends SvgCanvas {
 
     const useId = isLine ? this.straightId : this.curveId;
 
-    return /*html*/`
-      <use x="${x}" y="${y}" xlink:href="#${useId}" ${transform}/>
-      <!--<text x="${x}" y="${y}" style="font-size: ${this.size/2}px">${count}${isLine ? 'l' : 'c'}</text>-->
-    `;
+    return /*html*/`<use x="${x}" y="${y}" xlink:href="#${useId}" ${transform}/>`;
   }
 
   buildTiles() {
     const clipId = 'a' + nanoid();
 
+    // const clipPath = `
+    //   <clipPath id="${clipId}">
+    //     <rect
+    //       x="0"
+    //       y="0"
+    //       width="${this.size}"
+    //       height="${this.size}"
+    //     />
+    //   </clipPath>
+    // `;
+
     const clipPath = `
       <clipPath id="${clipId}">
         <rect
-          x="0"
-          y="0"
-          width="${this.size}"
-          height="${this.size}"
+          x="${0 - this.strokeWidth/2}"
+          y="${0 - this.strokeWidth/2}"
+          width="${this.size + this.strokeWidth}"
+          height="${this.size + this.strokeWidth}"
         />
       </clipPath>
     `;
@@ -216,8 +241,18 @@ export class SqCurves4 extends SvgCanvas {
       ${random(20, 50)}%
     )`;
 
-    this.gridSize = Math.round(random(5, 15));
+    this.gridSize = Math.round(random(8, 12));
     this.size = this.width / this.gridSize;
+
+    this.grid = [];
+
+    for (let i = 0; i < this.gridSize; i++) {
+      this.grid.push([]);
+      
+      for (let x = 0; x < this.gridSize; x++) {
+        this.grid[i].push(0);
+      }
+    }
     
     let minLines = 5
 
