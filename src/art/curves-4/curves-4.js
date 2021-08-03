@@ -156,32 +156,19 @@ export class SqCurves4 extends SvgCanvas {
   }
 
   buildTiles() {
-    const clipId = 'a' + nanoid();
-
-    // const clipPath = `
-    //   <clipPath id="${clipId}">
-    //     <rect
-    //       x="0"
-    //       y="0"
-    //       width="${this.size}"
-    //       height="${this.size}"
-    //     />
-    //   </clipPath>
-    // `;
-
-    const clipPath = `
-      <clipPath id="${clipId}">
-        <rect
-          x="${0 - this.strokeWidth/2}"
-          y="${0 - this.strokeWidth/2}"
-          width="${this.size + this.strokeWidth}"
-          height="${this.size + this.strokeWidth}"
-        />
-      </clipPath>
-    `;
-    
     let straightLines = '';
-    let curveLines = '';
+    let curveLines = /*html*/`
+      <path
+        d="
+          M0,${this.size} 
+          Q${this.size},${this.size} ${this.size},0
+          L0,0
+          Z
+        "
+        fill="#fff"
+      />
+
+    `;
     const sharedAttributes = `
       stroke="${this.stroke}"
       stroke-width="${this.strokeWidth}"
@@ -204,19 +191,18 @@ export class SqCurves4 extends SvgCanvas {
         />
       `;
       curveLines += /*html*/`
-        <circle
-          cx="0"
-          cy="0"
-          r="${fractionSize}"
-          ${sharedAttributes}
-          fill="#fff"
-        />
+        <path
+          d="
+            M0,${fractionSize} 
+            Q${fractionSize},${fractionSize} ${fractionSize},0
+          "
+          fill="none"
+          ${sharedAttributes}/>
       `;
     }
 
     return /*html*/`
       <defs>
-        ${clipPath}
         <g id="${this.straightId}">
           <rect
             x="0"
@@ -227,7 +213,7 @@ export class SqCurves4 extends SvgCanvas {
           />
           ${straightLines}
         </g>
-        <g clip-path="url(#${clipId})" id="${this.curveId}">
+        <g id="${this.curveId}">
           ${curveLines}
         </g>
       </defs>
