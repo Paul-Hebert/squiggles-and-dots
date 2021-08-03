@@ -28,7 +28,6 @@ export class SqCurves4 extends SvgCanvas {
         row: state.y,
         isLine: nextState.isLine,
         rotate: nextState.rotate,
-        count: i
       });
 
       this.grid[state.y][state.x] = this.grid[state.y][state.x] + 1;
@@ -141,7 +140,7 @@ export class SqCurves4 extends SvgCanvas {
     return randomItemInArray(possiblePositions)
   }
 
-  addSection = ({ col, row, isLine, rotate, count}) => {
+  addSection = ({ col, row, isLine, rotate}) => {
     let x = col * this.size;
     let y = row * this.size;
 
@@ -169,15 +168,18 @@ export class SqCurves4 extends SvgCanvas {
       />
 
     `;
-    const sharedAttributes = `
-      stroke="${this.stroke}"
-      stroke-width="${this.strokeWidth}"
-      stroke-linecap="round"
-    `
 
     for (let i = this.lineCount; i >= 0; i--) {
       const halfStroke = this.strokeWidth / 2;
       const fractionSize = halfStroke + (i / this.lineCount) * (this.size - this.strokeWidth);
+      const sharedAttributes = `
+        stroke="#${this.colors[i]}"
+        stroke-width="${this.strokeWidth}"
+        stroke-linecap="butt"
+        fill="none"
+      `;
+
+      console.log(this.colors[i]);
 
       straightLines += /*html*/`
         <line
@@ -186,7 +188,6 @@ export class SqCurves4 extends SvgCanvas {
           y1="${fractionSize}"
           y2="${fractionSize}"
           id="${this.straightId}"
-          fill="none"
           ${sharedAttributes}
         />
       `;
@@ -196,7 +197,6 @@ export class SqCurves4 extends SvgCanvas {
             M0,${fractionSize} 
             Q${fractionSize},${fractionSize} ${fractionSize},0
           "
-          fill="none"
           ${sharedAttributes}/>
       `;
     }
@@ -240,9 +240,11 @@ export class SqCurves4 extends SvgCanvas {
       }
     }
     
-    let minLines = 5
-
-    this.lineCount = Math.round(random(minLines, minLines + (this.size / 10)));
+    this.lineCount = 4;
+    // TODO: If the colors aren't symmetrical we need to add an alternate curve
+    // tile which use the colors in the opposite direction. 
+    // this.colors = ["264653", "2a9d8f", "e9c46a", "f4a261", "e76f51"];
+    this.colors = ["e76f51", "2a9d8f", "e9c46a", "2a9d8f", "e76f51"];
     let baseStrokeWidth = this.size / (this.lineCount * 5);
     this.strokeWidth = random(baseStrokeWidth * 0.5, baseStrokeWidth * 1.5);
 
