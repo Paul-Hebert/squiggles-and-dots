@@ -18,8 +18,11 @@ export class SolarSystems extends SvgCanvas {
 
   createConfigs() {
     this.starSize = random(70, 120);
-    const relativeStarHue = random(0, 75);
-    let adjustedStarHue = relativeStarHue - 10;
+    const relativeStarHue = random(0, 210);
+    // TODO: this doesn't work quite right
+    // This allows purples stars, which are kinda not a thing?
+  //  https://www.livescience.com/34469-purple-stars-green-stars-star-colors.html
+    let adjustedStarHue = relativeStarHue - 150;
     if(adjustedStarHue < 0) adjustedStarHue += 360;
     this.starColor = `hsl(${adjustedStarHue}, ${random(90, 100)}%, ${random(70, 80)}%)`;
     
