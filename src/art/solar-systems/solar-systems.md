@@ -1,6 +1,6 @@
 ---
 title: Solar Systems
-subhead: A base boilerplate
+subhead: Procedurally generated solar systems
 slug: "solar-systems"
 tag: "sq-solar-systems"
 scripts:
@@ -9,4 +9,4 @@ width: 200
 height: 200
 ---
 
-More details...
+(a.k.a. SVG circles with lots of filters and transforms applied.)
