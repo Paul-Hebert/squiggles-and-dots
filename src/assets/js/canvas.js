@@ -46,12 +46,14 @@ export class Canvas extends HTMLElement {
     this.refresh();
   }
 
+  refreshRate = 500;
+
   play = () => {
     if (this.isPlaying) return;
 
     this.isPlaying = true;
     this.refresh();
-    this.refreshInterval = setInterval(this.refresh, 500);
+    this.refreshInterval = setInterval(this.refresh, this.refreshRate);
   }
 
   pause = () =>  {

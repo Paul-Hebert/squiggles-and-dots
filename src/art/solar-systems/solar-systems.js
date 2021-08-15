@@ -6,6 +6,7 @@ export class SolarSystems extends SvgCanvas {
   name = "Solar Systems";
   width = 1000;
   height = 1000;
+  refreshRate = 1000;
 
   draw = () => {
     this.canvas.style.backgroundColor = '#000';
