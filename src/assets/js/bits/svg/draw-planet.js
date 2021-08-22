@@ -10,15 +10,27 @@ export const drawPlanet = ({ cx, cy, size }) => {
   const primaryColor = `hsl(${hue}, ${random(70, 100)}%, ${random(60, 80)}%)`;
 
   const scale = size;
-  console.log(scale);
 
   return /* html */`
+    <defs>
+      <radialGradient id="${id}-shadow">
+        <stop offset="10%" stop-color="hsla(0, 0%, 0%, 1)" />
+        <stop offset="100%" stop-color="hsla(0, 0%, 0%, 0)" />
+      </radialGradient>
+      <clipPath id="${id}-clip">
+        <circle 
+          r="${size + 2}" 
+          cx="${cx}" 
+          cy="${cy}"
+        />
+      </clipPath>
+    </defs>
     <filter id="${id}-texture">
       <feTurbulence
         ${isGas ? 'type="fractalNoise"' : "" }
         baseFrequency="${random(0.5, 2) / scale} ${random(2, 4) / scale}"
         seed="${random(0, 100)}"
-        numOctaves="${random(2, 10)}"
+        numOctaves="${Math.round(random(2, 10))}"
       />
       <feDiffuseLighting lighting-color="${primaryColor}" surfaceScale="${random(1, 10)}">
         <feDistantLight azimuth="${45}" elevation="${60}" />
@@ -38,6 +50,14 @@ export const drawPlanet = ({ cx, cy, size }) => {
       cy="${cy}"
       fill="#000"
       filter="url(#${id}-texture)"
+    />
+    <circle
+      id="${id}-clip" 
+      fill="url(#${id}-shadow)"
+      r="${size * 2}" 
+      cx="${cx + size}" 
+      cy="${cy}"
+      clip-path="url(#${id}-clip)"
     />
   `
 }

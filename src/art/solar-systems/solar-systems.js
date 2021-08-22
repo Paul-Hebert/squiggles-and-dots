@@ -2,6 +2,7 @@ import { SvgCanvas } from '../../assets/js/svg-canvas.js'
 import { random } from '../../assets/js/utils/random.js';
 import { drawStar } from '../../assets/js/bits/svg/draw-star.js';
 import { drawPlanet } from '../../assets/js/bits/svg/draw-planet.js';
+import { drawStarField } from '../../assets/js/bits/svg/draw-star-field.js';
 
 export class SolarSystems extends SvgCanvas {
   name = "Solar Systems";
@@ -45,7 +46,10 @@ export class SolarSystems extends SvgCanvas {
   }
 
   drawSystem() {
-    let markup = drawStar({
+    // TODO: Move to star field bit
+    let markup = drawStarField({ width: this.width, height: this.height });
+    
+    markup += drawStar({
       size: this.starSize,
       cx: this.cx,
       cy: this.cy
@@ -64,7 +68,12 @@ export class SolarSystems extends SvgCanvas {
 
   drawPlanet(config) {
     const orbitPath = /* html */`
-      <circle r="${config.distance}" cx="${this.cx}" cy="${this.cy}" fill="none" stroke="#888"/>
+      <circle
+        r="${config.distance}" 
+        cx="${this.cx}" 
+        cy="${this.cy}"
+        fill="none"
+        stroke="hsla(0, 0%, 100%, 0.5)"/>
     `
     
     const planet = /* html */`
