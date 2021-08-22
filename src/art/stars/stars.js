@@ -1,6 +1,6 @@
 import { SvgCanvas } from '../../assets/js/svg-canvas.js'
 import { random } from '../../assets/js/utils/random.js';
-import { drawStar } from '../../assets/js/bits/svg/stars.js';
+import { drawStar } from '../../assets/js/bits/svg/draw-star.js';
 
 export class Stars extends SvgCanvas {
   name = "Stars";
@@ -12,7 +12,7 @@ export class Stars extends SvgCanvas {
     this.canvas.style.backgroundColor = '#000';
 
     this.canvas.innerHTML = drawStar({
-      size: random(200, 400),
+      size: random(100, 400),
       cx: 500,
       cy: 500
     });

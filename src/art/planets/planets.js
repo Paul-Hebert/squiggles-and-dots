@@ -1,6 +1,6 @@
 import { SvgCanvas } from '../../assets/js/svg-canvas.js'
 import { random } from '../../assets/js/utils/random.js';
-import { drawPlanet } from '../../assets/js/bits/svg/planets.js';
+import { drawPlanet } from '../../assets/js/bits/svg/draw-planet.js';
 
 export class Planets extends SvgCanvas {
   name = "Planets";
@@ -12,7 +12,7 @@ export class Planets extends SvgCanvas {
     this.canvas.style.backgroundColor = '#000';
 
     this.canvas.innerHTML = drawPlanet({
-      size: random(200, 400),
+      size: random(20, 400),
       cx: 500,
       cy: 500
     });
