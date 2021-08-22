@@ -1,7 +1,7 @@
 import { SvgCanvas } from '../../assets/js/svg-canvas.js'
 import { random } from '../../assets/js/utils/random.js';
-import { drawStar } from '../../assets/js/bits/svg/stars.js';
-import { drawPlanet } from '../../assets/js/bits/svg/planets.js';
+import { drawStar } from '../../assets/js/bits/svg/draw-star.js';
+import { drawPlanet } from '../../assets/js/bits/svg/draw-planet.js';
 
 export class SolarSystems extends SvgCanvas {
   name = "Solar Systems";

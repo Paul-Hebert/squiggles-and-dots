@@ -4,17 +4,23 @@ import { random, randomBool } from '../../utils/random.js'
 export const drawPlanet = ({ cx, cy, size }) => {
   const id = `planet-${nanoid()}`;
   const isGas = randomBool();
-  const primaryColor = `hsl(${random(0, 360)}, ${random(30, 100)}%, ${random(60, 80)}%)`;
+  const hue = random(0, 360);
+  let secondaryHue = hue - 180;
+  if(secondaryHue < 0) secondaryHue += 360;
+  const primaryColor = `hsl(${hue}, ${random(70, 100)}%, ${random(60, 80)}%)`;
+
+  const scale = size;
+  console.log(scale);
 
   return /* html */`
     <filter id="${id}-texture">
       <feTurbulence
-        ${isGas ? 'type="fractalNoise"' : ''} 
-        baseFrequency="${random(0, 0.1)} ${random(0, 0.5)}"
+        baseFrequency="${random(0.5, 2) / scale} ${random(2, 4) / scale}"
         seed="${random(0, 100)}"
+        numOctaves="${random(2, 10)}"
       />
-      <feDiffuseLighting lighting-color="${primaryColor}" surfaceScale="${random(1, 5)}">
-        <feDistantLight azimuth="45" elevation="60" />
+      <feDiffuseLighting lighting-color="${primaryColor}" surfaceScale="${random(1, 10)}">
+        <feDistantLight azimuth="${45}" elevation="${60}" />
       </feDiffuseLighting>
       <feComposite operator="in" in2="SourceGraphic"/>
       <feGaussianBlur stdDeviation="1"/>
@@ -31,7 +37,6 @@ export const drawPlanet = ({ cx, cy, size }) => {
       cy="${cy}"
       fill="#000"
       filter="url(#${id}-texture)"
-      opacity="${random(0.6, 1)}";
     />
   `
 }
