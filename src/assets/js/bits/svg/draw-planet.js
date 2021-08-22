@@ -15,6 +15,7 @@ export const drawPlanet = ({ cx, cy, size }) => {
   return /* html */`
     <filter id="${id}-texture">
       <feTurbulence
+        ${isGas ? 'type="fractalNoise"' : "" }
         baseFrequency="${random(0.5, 2) / scale} ${random(2, 4) / scale}"
         seed="${random(0, 100)}"
         numOctaves="${random(2, 10)}"
