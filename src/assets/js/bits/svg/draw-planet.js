@@ -14,7 +14,7 @@ export const drawPlanet = ({ cx, cy, size }) => {
   return /* html */`
     <defs>
       <radialGradient id="${id}-shadow">
-        <stop offset="10%" stop-color="hsla(0, 0%, 0%, 1)" />
+        <stop offset="20%" stop-color="hsla(0, 0%, 0%, 1)" />
         <stop offset="100%" stop-color="hsla(0, 0%, 0%, 0)" />
       </radialGradient>
       <clipPath id="${id}-clip">
@@ -51,10 +51,10 @@ export const drawPlanet = ({ cx, cy, size }) => {
       fill="#000"
       filter="url(#${id}-texture)"
     />
-    <circle
-      id="${id}-clip" 
+    <ellipse
       fill="url(#${id}-shadow)"
-      r="${size * 2}" 
+      rx="${size * 2.25}" 
+      ry="${size * 10}" 
       cx="${cx + size}" 
       cy="${cy}"
       clip-path="url(#${id}-clip)"

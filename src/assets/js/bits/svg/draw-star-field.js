@@ -3,21 +3,22 @@ import { random } from '../../utils/random.js'
 
 export const drawStarField = () => {
   let id = `star-field-${nanoid()}`;
+  // TODO: improve gradients
   return /* html */`
     <defs>
       <radialGradient id="${id}-gradient-1">
-        <stop offset="0%" stop-color="hsla(${random(0, 360)}, 100%, 20%, 1)" />
-        <stop offset="100%" stop-color="hsla(${random(0, 360)}, 100%, 20%, 1)" />
+        <stop offset="0%" stop-color="hsla(${random(190, 230)}, 100%, 20%, 1)" />
+        <stop offset="100%" stop-color="hsla(${random(290, 360)}, 100%, 20%, 1)" />
       </radialGradient>
     </defs>
-    <rect x="-100%" y="-200%" width="300%" height="500%" fill="url(#${id}-gradient-1)" opacity="0.3"/>
+    <rect x="0%" y="0%" width="150%" height="200%" fill="url(#${id}-gradient-1)"/>
     <defs>
       <radialGradient id="${id}-gradient-2">
-        <stop offset="0%" stop-color="hsla(${random(0, 360)}, 100%, 20%, 1)" />
-        <stop offset="100%" stop-color="hsla(${random(0, 360)}, 100%, 20%, 1)" />
+        <stop offset="0%" stop-color="hsla(${random(190, 230)}, 100%, 20%, 1)" />
+        <stop offset="100%" stop-color="hsla(${random(290, 360)}, 100%, 20%, 1)" />
       </radialGradient>
     </defs>
-    <rect x="200%" y="50%" width="500%" height="300%" fill="url(#${id}-gradient-2)" opacity="0.3"/>
+    <rect x="100%" y="150%" width="150%" height="200%" fill="url(#${id}-gradient-2)" opacity="0.75"/>
 
     <filter id="${id}-bg">
       <feTurbulence type="fractalNoise" baseFrequency="0.01" seed="${random(0, 100)}"/> 

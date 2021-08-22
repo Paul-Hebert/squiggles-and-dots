@@ -56,7 +56,7 @@ export const drawStar = ({ size, cx, cy }) => {
       >
         <feGaussianBlur stdDeviation="${size / 5}"/>
       </filter>
-      <circle r="${size * 1.2}" cx="${cx}" cy="${cy}" filter="url(#${starId}-glow)" fill="${glowColor}" opacity="0.9"/>
+      <circle r="${size * 1.2}" cx="${cx}" cy="${cy}" filter="url(#${starId}-glow)" fill="${glowColor}" opacity="0.45"/>
       <circle r="${size * 0.8 + 2}" cx="${cx}" cy="${cy}" fill="${glowColor}" opacity="0.9"/>
       <circle r="${size * 0.8}" cx="${cx}" cy="${cy}" fill="${starColor}"/>
       <circle r="${size * 0.8}" cx="${cx}" cy="${cy}" filter="url(#${starId}-main)" opacity="0.5"/>
