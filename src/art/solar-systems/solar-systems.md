@@ -9,4 +9,4 @@ width: 200
 height: 200
 ---
 
-(a.k.a. SVG circles with lots of filters and transforms applied.)
+(a.k.a. SVG circles with lots of filters, gradients and transforms applied.)

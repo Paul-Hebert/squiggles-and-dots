@@ -7,7 +7,7 @@ export const drawPlanet = ({ cx, cy, size }) => {
   const hue = random(0, 360);
   let secondaryHue = hue - 180;
   if(secondaryHue < 0) secondaryHue += 360;
-  const primaryColor = `hsl(${hue}, ${random(70, 100)}%, ${random(60, 80)}%)`;
+  const primaryColor = `hsl(${hue}, ${random(70, 100)}%, ${random(70, 90)}%)`;
 
   const scale = size;
 
@@ -53,7 +53,7 @@ export const drawPlanet = ({ cx, cy, size }) => {
     />
     <ellipse
       fill="url(#${id}-shadow)"
-      rx="${size * 2.25}" 
+      rx="${size * 1.75}" 
       ry="${size * 10}" 
       cx="${cx + size}" 
       cy="${cy}"
