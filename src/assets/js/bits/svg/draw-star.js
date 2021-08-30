@@ -56,6 +56,21 @@ export const drawStar = ({ size, cx, cy }) => {
       </filter>
       
       <filter
+        id="${starId}-secondary-glow" 
+        filterUnits="userSpaceOnUse"
+        x="${cx - size * blurFilterSize}" 
+        y="${cy - size * blurFilterSize}" 
+        height="${size * 2 * blurFilterSize}" 
+        width="${size * 2 * blurFilterSize}"
+      >
+        <feGaussianBlur stdDeviation="${size / 5}"/>
+        <feColorMatrix 
+          type="saturate" 
+          values="10"
+        />
+      </filter>
+      
+      <filter
         id="${starId}-turbulent-glow" 
       >
         <feTurbulence baseFrequency="${0.75 / size * 10}" seed="${random(0, 100)}"/>
@@ -72,14 +87,14 @@ export const drawStar = ({ size, cx, cy }) => {
           <feFuncB type="linear" slope="100"/>
         </feComponentTransfer>
         <feComposite operator="in" in2="SourceGraphic"/>
-        <feGaussianBlur stdDeviation="${size / 30}"/>
+        <feGaussianBlur stdDeviation="${size / 25}"/>
       </filter>
 
       <circle r="${size * 0.85}" cx="${cx}" cy="${cy}" filter="url(#${starId}-turbulent-glow)" fill="${glowColor}" opacity="0.7"/>
       <circle r="${size}" cx="${cx}" cy="${cy}" filter="url(#${starId}-glow)" fill="${glowColor}" opacity="0.7"/>
-      <circle r="${size * 0.8 + 2}" cx="${cx}" cy="${cy}" fill="${glowColor}" opacity="0.9"/>
       <circle r="${size * 0.8}" cx="${cx}" cy="${cy}" fill="${starColor}"/>
-      <circle r="${size * 0.75}" cx="${cx}" cy="${cy}" filter="url(#${starId}-main)" opacity="0.7"/>
+      <circle r="${size * 0.75}" cx="${cx}" cy="${cy}" filter="url(#${starId}-main)" opacity="0.9"/>
+      <circle r="${size * 0.7}" cx="${cx}" cy="${cy}" filter="url(#${starId}-secondary-glow)" fill="${glowColor}" opacity="0.6"/>
     </g>
   `;
 }
