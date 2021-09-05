@@ -179,8 +179,6 @@ export class SqCurves4 extends SvgCanvas {
         fill="none"
       `;
 
-      console.log(this.colors[i]);
-
       straightLines += /*html*/`
         <line
           x1="0"

@@ -17,7 +17,8 @@ styles:
   {{content}}
 
   <ul class="listings">
-    {% for piece in collections.art %}
+    {% assign listings = collections.art | sortByOrder %}
+    {% for piece in listings %}
       <li class="card">
         <div 
           class="card__graphic-wrapper ratio-box" 

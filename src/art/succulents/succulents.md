@@ -7,6 +7,7 @@ scripts:
 width: 2000
 height: 1000
 disableInfiniteScroll: true
+order: 30
 ---
 
 A series of spiraling succulents.

@@ -8,4 +8,5 @@ scripts:
 width: 100
 height: 100
 disableInfiniteScroll: true
+order: 20
 ---
