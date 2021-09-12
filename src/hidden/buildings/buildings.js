@@ -5,24 +5,23 @@ export class SqBuildings extends SvgCanvas {
   name = "Buildings";
   width = 200;
   height = 100;
+  height = 100;
   scaleUnit = 10;
+  scaleWidth = this.width/this.scaleUnit;
+  scaleHeight = this.width/this.scaleUnit;
 
   draw = () => {
     let markup = '';
 
-    let xPos = 0; 
-    while (xPos < this.width - this.scaleUnit) {
-      let width = Math.round(random(1, 5)) * this.scaleUnit;
+    let buildingSize = Math.round(random(2, 5));
+    let xPos = Math.round(random(1, this.scaleWidth - buildingSize - 1)); 
 
-      if (xPos + width > this.width) {
-        width = this.width - xPos;
-      }
+    for (let i = 0; i < buildingSize; i++) {
+      let width = 2;
 
-      if (Math.random() < 0.75) {
-        markup += this.addBuilding(xPos, width)
-      }
+      markup += this.addBuilding(xPos, width)
 
-      xPos += width;
+      xPos += width * this.scaleWidth / 2;
     }
 
     this.canvas.innerHTML = markup;
@@ -35,14 +34,17 @@ export class SqBuildings extends SvgCanvas {
 
     return this.drawRoof({
       xPos,
-      width,
+      width: width * this.scaleUnit,
       yPos: this.height - height + roofHeight,
       height: roofHeight
     }) + this.drawWalls({
       xPos,
-      width,
+      width: width * this.scaleUnit,
       yPos: this.height - bodyHeight,
       height: bodyHeight
+    }) + this.drawDoor({
+      xPos,
+      width: width * this.scaleUnit,
     })
   }
 
@@ -79,6 +81,20 @@ export class SqBuildings extends SvgCanvas {
         width="${width}" 
         y="${yPos}" 
         height="${height}"
+        fill="#fff"
+        stroke="#ccc"/>
+    `;
+  }
+
+  drawDoor({xPos, width}) {
+    const doorHeight = this.scaleUnit * 3/2;
+    const doorWidth = this.scaleUnit * 2/3;
+    return /* html */`
+      <rect
+        x="${(xPos + width / 2) - doorWidth / 2}" 
+        width="${doorWidth}" 
+        y="${this.height - doorHeight}" 
+        height="${doorHeight}"
         fill="#fff"
         stroke="#ccc"/>
     `;
