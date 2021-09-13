@@ -6,7 +6,6 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addFilter("sortByOrder", function (array) {
     // return array;
     return array.sort((a, b) => {
-      console.log(a.data.order, b.data.order);
       if (a.data.order === b.data.order) return 0;
 
       if(!a.data.order) return 1;
