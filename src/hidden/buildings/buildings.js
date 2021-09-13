@@ -4,12 +4,14 @@ import { random, randomBool } from '../../assets/js/utils/random.js';
 export class SqBuildings extends SvgCanvas {
   name = "Buildings";
 
-  width = 200;
-  height = 100;
-  height = 100;
-  scaleUnit = 10;
+  width = 1000;
+  height = 500;
+  scaleUnit = 50;
   scaleWidth = this.width/this.scaleUnit;
   scaleHeight = this.width/this.scaleUnit;
+
+  strokeFilter = `url('#pencilTexture3')`;
+  strokeWidth = 2;
 
   draw = () => {
     this.hue = random(0, 360);
@@ -39,7 +41,7 @@ export class SqBuildings extends SvgCanvas {
 
       markup += this.addBuilding(xPos, width)
 
-      xPos += width * this.scaleWidth / 2;
+      xPos += width;
     }
 
     this.canvas.innerHTML = markup;
@@ -51,17 +53,17 @@ export class SqBuildings extends SvgCanvas {
     const bodyHeight = height - roofHeight;
 
     return this.drawRoof({
-      xPos,
+      xPos: xPos * this.scaleUnit,
       width: width * this.scaleUnit,
       yPos: this.height - height + roofHeight,
       height: roofHeight
     }) + this.drawWalls({
-      xPos,
+      xPos: xPos * this.scaleUnit,
       width: width * this.scaleUnit,
       yPos: this.height - bodyHeight,
       height: bodyHeight
     }) + this.drawDoor({
-      xPos,
+      xPos: xPos * this.scaleUnit,
       width: width * this.scaleUnit,
     })
   }
@@ -84,7 +86,8 @@ export class SqBuildings extends SvgCanvas {
           ry="${height}"
           fill="none"
           stroke="${this.strokeColor}"
-          filter="url('#PencilTexture')"
+          stroke-width="${this.strokeWidth}"
+          filter="${this.strokeFilter}"
           />
       `;
     } else {
@@ -107,7 +110,8 @@ export class SqBuildings extends SvgCanvas {
           "
           fill="none"
           stroke="${this.strokeColor}"
-          filter="url('#PencilTexture')"
+          stroke-width="${this.strokeWidth}"
+          filter="${this.strokeFilter}"
           />
       `;
     }
@@ -129,7 +133,8 @@ export class SqBuildings extends SvgCanvas {
         width="1"
         fill="none"
         stroke="${this.strokeColor}"
-        filter="url('#PencilTexture')" />
+        stroke-width="${this.strokeWidth}"
+        filter="${this.strokeFilter}" />
       <path
         stroke="none"
         fill="${this.flagColor}"
@@ -152,8 +157,8 @@ export class SqBuildings extends SvgCanvas {
           l${width / 4 * direction * -1},0
           Z
         "
-        filter="url('#PencilTexture')"
-        opacity="0.5" />
+        filter="${this.strokeFilter}"
+        stroke-width="${this.strokeWidth}"/>
     `;
   }
 
@@ -173,7 +178,8 @@ export class SqBuildings extends SvgCanvas {
         height="${height}"
         fill="none"
         stroke="${this.strokeColor}"
-        filter="url('#PencilTexture')"
+        stroke-width="${this.strokeWidth}"
+        filter="${this.strokeFilter}"
         />
     `;
   }
@@ -204,7 +210,8 @@ export class SqBuildings extends SvgCanvas {
         height="${doorHeight}"
         fill="none"
         stroke="${this.strokeColor}"
-        filter="url('#PencilTexture')"
+        stroke-width="${this.strokeWidth}"
+        filter="${this.strokeFilter}"
         />
     `;
   }
@@ -228,7 +235,7 @@ export class SqBuildings extends SvgCanvas {
         <feTurbulence type="fractalNoise" baseFrequency="5" numOctaves="10" result="noise"></feTurbulence>
         <feDisplacementMap xChannelSelector="R" yChannelSelector="G" scale="3" in="SourceGraphic" result="newSource"></feDisplacementMap>
       </filter>
-    <filter x="0%" y="0%" width="100%" height="100%" filterUnits="objectBoundingBox" id="pencilTexture2">
+    <filter  x="-20%" y="-20%" width="140%" height="140%" filterUnits="objectBoundingBox" id="pencilTexture2">
         <feTurbulence type="fractalNoise" baseFrequency="2" numOctaves="5" stitchTiles="stitch" result="f1">
         </feTurbulence>
         <feColorMatrix type="matrix" values="0 0 0 0 0, 0 0 0 0 0, 0 0 0 0 0, 0 0 0 -1.5 1.5" result="f2">
@@ -236,7 +243,7 @@ export class SqBuildings extends SvgCanvas {
         <feComposite operator="in" in2="f2" in="SourceGraphic" result="f3">
         </feComposite>
     </filter>
-    <filter x="0%" y="0%" width="100%" height="100%" filterUnits="objectBoundingBox" id="pencilTexture3">
+    <filter  x="-20%" y="-20%" width="140%" height="140%" filterUnits="objectBoundingBox" id="pencilTexture3">
         <feTurbulence type="fractalNoise" baseFrequency="0.5" numOctaves="5" stitchTiles="stitch" result="f1">
         </feTurbulence>
         <feColorMatrix type="matrix" values="0 0 0 0 0, 0 0 0 0 0, 0 0 0 0 0, 0 0 0 -1.5 1.5" result="f2">
