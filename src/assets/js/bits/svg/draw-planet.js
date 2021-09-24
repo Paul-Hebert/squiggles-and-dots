@@ -49,10 +49,9 @@ export const drawPlanet = ({ cx, cy, size }) => {
       fill="#000"
       filter="url(#${id}-texture)"
     />
-    <ellipse
+    <circle
       fill="url(#${id}-shadow)"
-      rx="${size * 2 + 2}" 
-      ry="${size * 2 + 2}" 
+      r="${size * 2 + 2}"
       cx="${cx - size}" 
       cy="${cy}"
       clip-path="url(#${id}-clip)"
