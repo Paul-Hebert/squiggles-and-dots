@@ -38,7 +38,7 @@ export const drawPlanet = ({ cx, cy, size }) => {
     </filter>
     <circle
       r="${size}" 
-      cx="${cx}" 
+      cx="${cx - 1}" 
       cy="${cy}"
       fill="#fff"
     />
