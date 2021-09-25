@@ -13,9 +13,18 @@ export class SvgCanvas extends Canvas {
          xmlns="http://www.w3.org/2000/svg"
          version="1.1"
          xmlns:xlink="http://www.w3.org/1999/xlink"
-      ></svg>
+         role="img"
+      >
+        <title>${this.name}</title>
+        <g class="js-canvas"></g>
+        <defs class="js-defs"></defs>
+        <style class="js-styles"></style>
+      </svg>
     `;
-    return this.querySelector('svg');
+
+    this.defs = this.querySelector('js-defs');
+    this.styles = this.querySelector('js-styles');
+    return this.querySelector('.js-canvas');
   }
 
   clear = () => {
