@@ -22,6 +22,7 @@ export class SvgCanvas extends Canvas {
       </svg>
     `;
 
+    this.svg = this.querySelector('svg');
     this.defs = this.querySelector('js-defs');
     this.styles = this.querySelector('js-styles');
     return this.querySelector('.js-canvas');

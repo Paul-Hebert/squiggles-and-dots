@@ -7,7 +7,7 @@ export class SqExample extends SvgCanvas {
   height = 100;
 
   draw = () => {
-    this.canvas.style.backgroundColor = `hsl(
+    this.svg.style.backgroundColor = `hsl(
       ${random(0, 360)},
       ${random(0, 100)}%,
       ${random(0, 100)}%

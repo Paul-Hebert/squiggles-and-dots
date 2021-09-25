@@ -10,7 +10,7 @@ export class SqSucculents extends SvgCanvas {
   draw = () => {
     let markup = '';
 
-    this.canvas.style.backgroundColor = hsla({
+    this.svg.style.backgroundColor = hsla({
       h: random(0, 360),
       s: random(0, 60),
       l: random(10, 100),
