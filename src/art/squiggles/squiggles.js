@@ -3,8 +3,8 @@ import { random } from '../../assets/js/utils/random.js';
 
 export class SqSquiggles extends SvgCanvas {
   name = "Squiggles";
-  width = 200;
-  height = 100;
+  width = 228;
+  height = 360;
 
   draw = () => {
     let markup = '';

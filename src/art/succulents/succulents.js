@@ -4,15 +4,15 @@ import { random } from '../../assets/js/utils/random.js';
 
 export class SqSucculents extends SvgCanvas {
   name = "Generative Succulents";
-  width = 2000;
-  height = 1000;
+  width = 2280;
+  height = 3600;
 
   draw = () => {
     let markup = '';
 
     this.svg.style.backgroundColor = hsla({
       h: random(0, 360),
-      s: random(0, 60),
+      s: random(50, 60),
       l: random(10, 100),
       a: 100
     });
@@ -22,8 +22,8 @@ export class SqSucculents extends SvgCanvas {
     const maxSucculentSize = 600;
     for (let i = 0; i < 1000; i++) {
       const newSucculent = {
-        x: random(0, 2000),
-        y: random(0, 1000),
+        x: random(0, this.width),
+        y: random(0, this.height),
         radius: maxSucculentSize
       };
   
