@@ -6,8 +6,8 @@ import { drawStarField } from '../../assets/js/bits/svg/draw-star-field.js';
 
 export class SolarSystems extends SvgCanvas {
   name = "Solar Systems";
-  width = 1000;
-  height = 1000;
+  width = 268 * 4.25;
+  height = 228 * 4.25;
   refreshRate = 1000;
 
   draw = () => {
@@ -105,7 +105,7 @@ export class SolarSystems extends SvgCanvas {
         }
 
         to {
-          transform: rotate(calc(var(--start-rotation) + 360deg)) translateX(var(--distance)) ;
+          transform: rotate(var(--start-rotation)) translateX(var(--distance));
         }
       }
 
