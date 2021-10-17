@@ -4,7 +4,7 @@ import { drawStarField } from '../../assets/js/bits/svg/draw-star-field.js';
 export class SqStarField extends SvgCanvas {
   name = "StarField";
   width = 268 * 4.25;
-  height = 120 * 4.25;
+  height = 360 * 4.25;
 
   draw = () => {
     this.canvas.style.backgroundColor = '#000';
