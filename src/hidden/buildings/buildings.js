@@ -1,5 +1,5 @@
-import { SvgCanvas } from '../../assets/js/svg-canvas.js'
-import { random, randomBool } from '../../assets/js/utils/random.js';
+import { SvgCanvas } from "../../assets/js/svg-canvas.js";
+import { random, randomBool } from "../../assets/js/utils/random.js";
 
 export class SqBuildings extends SvgCanvas {
   name = "Buildings";
@@ -7,8 +7,8 @@ export class SqBuildings extends SvgCanvas {
   width = 1000;
   height = 500;
   scaleUnit = 50;
-  scaleWidth = this.width/this.scaleUnit;
-  scaleHeight = this.width/this.scaleUnit;
+  scaleWidth = this.width / this.scaleUnit;
+  scaleHeight = this.width / this.scaleUnit;
 
   strokeFilter = `url('#pencilTexture3')`;
   strokeWidth = 2;
@@ -23,7 +23,7 @@ export class SqBuildings extends SvgCanvas {
     this.fillColor = `hsl(
       ${this.hue},
       ${random(20, 50)}%,
-      ${random(95, 100)}%
+      ${random(80, 100)}%
     )`;
     this.flagColor = `hsl(
       ${this.hue},
@@ -31,47 +31,53 @@ export class SqBuildings extends SvgCanvas {
       ${random(40, 60)}%
     )`;
 
-    let markup = this.defs;
+    let markup = "";
+
+    this.defs.innerHTML = this.defValues;
 
     let buildingSize = Math.round(random(2, 5));
-    let xPos = Math.round(random(1, this.scaleWidth - buildingSize - 1)); 
+    let xPos = Math.round(random(1, this.scaleWidth - buildingSize - 1));
 
     for (let i = 0; i < buildingSize; i++) {
       let width = 2;
 
-      markup += this.addBuilding(xPos, width)
+      markup += this.addBuilding(xPos, width);
 
       xPos += width;
     }
 
     this.canvas.innerHTML = markup;
-  }
+  };
 
   addBuilding = (xPos, width) => {
     const height = Math.round(random(3, 8)) * this.scaleUnit;
     const roofHeight = this.scaleUnit;
     const bodyHeight = height - roofHeight;
 
-    return this.drawRoof({
-      xPos: xPos * this.scaleUnit,
-      width: width * this.scaleUnit,
-      yPos: this.height - height + roofHeight,
-      height: roofHeight
-    }) + this.drawWalls({
-      xPos: xPos * this.scaleUnit,
-      width: width * this.scaleUnit,
-      yPos: this.height - bodyHeight,
-      height: bodyHeight
-    }) + this.drawDoor({
-      xPos: xPos * this.scaleUnit,
-      width: width * this.scaleUnit,
-    })
-  }
+    return (
+      this.drawRoof({
+        xPos: xPos * this.scaleUnit,
+        width: width * this.scaleUnit,
+        yPos: this.height - height + roofHeight,
+        height: roofHeight,
+      }) +
+      this.drawWalls({
+        xPos: xPos * this.scaleUnit,
+        width: width * this.scaleUnit,
+        yPos: this.height - bodyHeight,
+        height: bodyHeight,
+      }) +
+      this.drawDoor({
+        xPos: xPos * this.scaleUnit,
+        width: width * this.scaleUnit,
+      })
+    );
+  };
 
   drawRoof({ xPos, yPos, width, height }) {
     let roof;
-    if(Math.random() > 0.5) {
-      roof = /* svg */`
+    if (Math.random() > 0.5) {
+      roof = /* svg */ `
         <ellipse
           cx="${xPos + width / 2}"
           cy="${yPos}"
@@ -91,7 +97,7 @@ export class SqBuildings extends SvgCanvas {
           />
       `;
     } else {
-      roof = /* svg */`
+      roof = /* svg */ `
         <path
           d="
             M ${xPos},${yPos} 
@@ -125,7 +131,7 @@ export class SqBuildings extends SvgCanvas {
 
   drawFlag({ xPos, yPos, width, height }) {
     const direction = randomBool() ? 1 : -1;
-    return /* svg */`
+    return /* svg */ `
       <rect
         y="${yPos - height * 2}"
         height="${height}"
@@ -140,10 +146,10 @@ export class SqBuildings extends SvgCanvas {
         fill="${this.flagColor}"
         d="
           M${xPos + width / 2 - 0.5},${yPos - height * 2}
-          l${width / 4 * direction},0
-          l${width / 8 * direction * -1},${height / 8}
-          l${width / 8 * direction},${height / 8}
-          l${width / 4 * direction * -1},0
+          l${(width / 4) * direction},0
+          l${(width / 8) * direction * -1},${height / 8}
+          l${(width / 8) * direction},${height / 8}
+          l${(width / 4) * direction * -1},0
           Z
         "/>
       <path
@@ -151,10 +157,10 @@ export class SqBuildings extends SvgCanvas {
         stroke="${this.strokeColor}"
         d="
           M${xPos + width / 2 - 0.5},${yPos - height * 2}
-          l${width / 4 * direction},0
-          l${width / 8 * direction * -1},${height / 8}
-          l${width / 8 * direction},${height / 8}
-          l${width / 4 * direction * -1},0
+          l${(width / 4) * direction},0
+          l${(width / 8) * direction * -1},${height / 8}
+          l${(width / 8) * direction},${height / 8}
+          l${(width / 4) * direction * -1},0
           Z
         "
         filter="${this.strokeFilter}"
@@ -162,8 +168,8 @@ export class SqBuildings extends SvgCanvas {
     `;
   }
 
-  drawWalls({xPos, yPos, width, height}) {
-    return /* svg */`
+  drawWalls({ xPos, yPos, width, height }) {
+    return /* svg */ `
       <rect
         x="${xPos}" 
         width="${width}" 
@@ -184,19 +190,19 @@ export class SqBuildings extends SvgCanvas {
     `;
   }
 
-  drawDoor({xPos, width}) {
-    const doorHeight = this.scaleUnit * 3/2;
-    const doorWidth = this.scaleUnit * 2/3;
-    return /* svg */`
+  drawDoor({ xPos, width }) {
+    const doorHeight = (this.scaleUnit * 3) / 2;
+    const doorWidth = (this.scaleUnit * 2) / 3;
+    return /* svg */ `
       <rect
-        x="${(xPos + width / 2) - doorWidth / 2}" 
+        x="${xPos + width / 2 - doorWidth / 2}" 
         width="${doorWidth}" 
         y="${this.height - doorHeight}" 
         height="${doorHeight}"
         fill="${this.fillColor}"
         stroke="none"/>
       <rect
-        x="${(xPos + width / 2) - doorWidth / 2}" 
+        x="${xPos + width / 2 - doorWidth / 2}" 
         width="${doorWidth}" 
         y="${this.height - doorHeight}" 
         height="${doorHeight}"
@@ -204,7 +210,7 @@ export class SqBuildings extends SvgCanvas {
         opacity="0.2"
         stroke="none"/>
       <rect
-        x="${(xPos + width / 2) - doorWidth / 2}" 
+        x="${xPos + width / 2 - doorWidth / 2}" 
         width="${doorWidth}" 
         y="${this.height - doorHeight}" 
         height="${doorHeight}"
@@ -220,7 +226,7 @@ export class SqBuildings extends SvgCanvas {
   // TODO: Improve filrers
   // https://heredragonsabound.blogspot.com/2020/02/creating-pencil-effect-in-svg.html
   // https://codepen.io/srt19170/pen/oNNQmRw?editors=1010
-  defs = /* svg */`
+  defValues = /* svg */ `
     <defs>
       <filter x="0%" y="0%" width="100%" height="100%" filterUnits="objectBoundingBox" id="roughPaper">
         <feTurbulence type="fractalNoise" baseFrequency="128" numOctaves="1" result="noise"></feTurbulence>
@@ -278,4 +284,3 @@ export class SqBuildings extends SvgCanvas {
 }
 
 customElements.define("sq-buildings", SqBuildings);
-
