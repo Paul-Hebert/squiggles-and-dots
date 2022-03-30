@@ -1,4 +1,4 @@
-import { Canvas } from './canvas.js';
+import { Canvas } from "./canvas.js";
 
 export class SvgCanvas extends Canvas {
   constructor() {
@@ -6,7 +6,7 @@ export class SvgCanvas extends Canvas {
   }
 
   addCanvas = () => {
-    this.innerHTML += /* html */`
+    this.innerHTML += /* html */ `
       <svg
         viewBox="0 0 ${this.width} ${this.height}"
         class="canvas"
@@ -22,26 +22,25 @@ export class SvgCanvas extends Canvas {
       </svg>
     `;
 
-    this.svg = this.querySelector('svg');
-    this.defs = this.querySelector('.js-defs');
-    console.log(this.defs);
-    this.styles = this.querySelector('.js-styles');
-    return this.querySelector('.js-canvas');
-  }
+    this.svg = this.querySelector("svg");
+    this.defs = this.querySelector(".js-defs");
+    this.styles = this.querySelector(".js-styles");
+    return this.querySelector(".js-canvas");
+  };
 
   clear = () => {
-    this.canvas.innerHTML = '';
-  }
+    this.canvas.innerHTML = "";
+  };
 
   toUrl = () => {
     return "data:image/svg+xml;utf8," + this.innerHTML;
-  }
+  };
 
   download = () => {
-    const anchor = document.createElement('a');
-    anchor.setAttribute('download', this.name);
+    const anchor = document.createElement("a");
+    anchor.setAttribute("download", this.name);
     anchor.setAttribute("href", this.toUrl());
-    anchor.setAttribute('target', '_blank');
+    anchor.setAttribute("target", "_blank");
     anchor.click();
-  }
+  };
 }
