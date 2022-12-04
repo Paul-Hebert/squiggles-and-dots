@@ -8,34 +8,36 @@ styles:
 ---
 
 <section class="container details" aria-labelledby="details-heading">
-  <div class="details__description stack">
-    <div class="heading-block">
+    <div class="heading-block details__heading stack">
       <h1 id="details-heading">{{title}}</h1>
       {% if subhead %}
         <p>{{subhead}}</p>
       {% endif %}
     </div>
 
-    {{content}}
+    <div class="details__preview stack">
+      <div class="ratio-box" style="--aspect-ratio: {{height}}/{{width}};">
+        <{{tag}} class="details__graphic"></{{tag}}>
+      </div>
 
-    <a 
-      href="https://github.com/Paul-Hebert/squiggles-and-dots/tree/master/src/art/{{slug}}/{{slug}}.js"
-      target="_blank"
-    >
-      View Source Code on GitHub
-    </a>
-  </div>
-  <div class="details__preview stack">
-    <div class="ratio-box" style="--aspect-ratio: {{height}}/{{width}};">
-      <{{tag}} class="details__graphic"></{{tag}}>
+      <div class="details__controls button-group button-group__centered">
+        <button class="button js-refresh" autocomplete="off">Refresh</button>
+        <button class="button js-play" autocomplete="off">Play</button>
+        <button class="button js-pause" disabled autocomplete="off">Pause</button>
+        <button class="button js-download" autocomplete="off">Download</button>
+      </div>
     </div>
-  </div>
 
-  <div class="details__controls button-group button-group__centered">
-    <button class="button js-refresh" autocomplete="off">Refresh</button>
-    <button class="button js-play" autocomplete="off">Play</button>
-    <button class="button js-pause" disabled autocomplete="off">Pause</button>
-    <button class="button js-download" autocomplete="off">Download</button>
+    <div class="details__description stack">
+      {{content}}
+
+      <a 
+        href="https://github.com/Paul-Hebert/squiggles-and-dots/tree/master/src/art/{{slug}}/{{slug}}.js"
+        target="_blank"
+      >
+        View Source Code on GitHub
+      </a>
+    </div>
   </div>
 </section>
 

@@ -4,24 +4,28 @@
   grid-template-columns: 1fr;
 }
 
-@media(min-width: 48em) {
+@media (min-width: 48em) {
   .details {
+    align-content: center;
     grid-template-columns: auto min(80vh, 66%);
-    grid-template-areas: 
-      "description preview"
-      ".           controls";
+    grid-template-areas:
+      "heading preview"
+      "description preview";
     gap: 1em;
+  }
+
+  .details__heading {
+    grid-area: heading;
+    align-self: end;
   }
 
   .details__description {
     grid-area: description;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    align-self: start;
   }
-  
+
   .details__preview {
-    grid-area: preview
+    grid-area: preview;
   }
 
   .details__controls {
