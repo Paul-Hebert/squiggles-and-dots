@@ -6,6 +6,7 @@ scripts:
   - "snow-flakes"
 width: 100
 height: 100
+order: 15
 ---
 
 It snowed for the first time this season in Portland. After tromping down to the Montavilla Farmers Market with my dog Clover to meet my girlfriend and buy groceries, I sat down by the living room window with a hot mug of coffee and coded some snow flakes.
