@@ -10,7 +10,7 @@ export class SqSnowFlakes extends SvgCanvas {
   draw = () => {
     const size = random(25, 45);
     const id = nanoid();
-    const angle = randomItemInArray([40, 45, 60]);
+    const angle = randomItemInArray([36, 40, 45, 60]);
 
     this.defs.innerHTML = this.buildBaseShape(size, id);
 
@@ -38,7 +38,7 @@ export class SqSnowFlakes extends SvgCanvas {
   };
 
   buildBaseShape = (size, id) => {
-    const strokeWidth = random(1, 3);
+    const strokeWidth = random(1, 2);
 
     const styles = `
       stroke="#fff"
@@ -55,7 +55,11 @@ export class SqSnowFlakes extends SvgCanvas {
 
     let offshoots = [];
 
-    for (let i = random(3, 10); i < size; i += random(5, 20)) {
+    for (
+      let i = random(3, 5 * strokeWidth);
+      i < size;
+      i += random(2 * strokeWidth, 10 * strokeWidth)
+    ) {
       const distance = random(5, Math.min(size - i, 10));
       offshoots.push(`
         <line 
