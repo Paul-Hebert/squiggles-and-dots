@@ -1,5 +1,6 @@
 ---
 title: Snow Flakes
+subhead: And the beauty of symmetry...
 slug: "snow-flakes"
 tag: "sq-snow-flakes"
 scripts:
