@@ -142,9 +142,6 @@ export class SqAnimatedSnowFlakes extends SvgCanvas {
         0% {
           transform: rotate(0deg);
         }
-        50% {
-          transform: rotate(calc(var(--rotation) / 2));
-        }
         100% {
           transform: rotate(var(--rotation));
         }
