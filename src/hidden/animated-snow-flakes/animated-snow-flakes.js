@@ -78,8 +78,8 @@ export class SqAnimatedSnowFlakes extends SvgCanvas {
     const spokes = randomItemInArray([10, 9, 8, 6]);
 
     this.styles.innerHTML = `
-      svg,
-      .js-canvas {
+      sq-animated-snow-flakes svg,
+      sq-animated-snow-flakes .js-canvas {
         --base-speed: 0.5s;
       
         --trunk-duration: var(--base-speed);
@@ -94,7 +94,7 @@ export class SqAnimatedSnowFlakes extends SvgCanvas {
         --flake-delay: calc(var(--spin-delay) + var(--spin-length) + var(--base-speed));
       }
       
-      line {
+      sq-animated-snow-flakes line {
         stroke: #fff;
         stroke-width: 1.5px;
         stroke-linecap: round;
@@ -141,6 +141,9 @@ export class SqAnimatedSnowFlakes extends SvgCanvas {
       @keyframes spin {
         0% {
           transform: rotate(0deg);
+        }
+        50% {
+          transform: rotate(calc(var(--rotation) / 2));
         }
         100% {
           transform: rotate(var(--rotation));
