@@ -1,8 +1,12 @@
 {
   "name": "squiggles-and-dots",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "",
   "main": "index.js",
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
     "build": "npx @11ty/eleventy --input=src --output=dist",
     "start": "npx @11ty/eleventy --input=src --output=dist --serve"
