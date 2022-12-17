@@ -162,56 +162,6 @@ export class SqAnimatedSnowFlakes extends SvgCanvas {
           transform: translateY(5%);
         }
       }
-
-      line {
-        stroke: #fff;
-        stroke-width: 1.5px;
-        stroke-linecap: round;
-        
-        
-        stroke-dasharray: var(--length);
-        stroke-dashoffset: var(--length);
-        animation: dash var(--duration) both;
-      }
-
-      .trunk {
-        --duration: var(--trunk-duration);
-      }
-
-      .branch {
-        --duration: var(--branch-duration);
-        animation-delay: calc(var(--trunk-duration) * 1/3 + var(--index) * var(--base-speed) / 4);
-      }
-
-      @keyframes dash {
-        to {
-          stroke-dashoffset: 0;
-        }
-      }
-
-      .flip {
-        animation: flip var(--flip-length) forwards;
-        animation-delay: var(--flip-delay);
-        transform-origin: center;
-      }
-
-      @keyframes flip {
-        to {
-          transform: scaleX(-1);
-        }
-      }
-
-      .spinner {
-        animation: spin calc(var(--spin-length) * (var(--index)/${spokes})) forwards;
-        animation-delay: var(--spin-delay);
-        transform-origin: center;
-      }
-
-      @keyframes spin {
-        to {
-          transform: rotate(var(--rotation));
-        }
-      }
     `;
   
     this.canvas.style.setProperty('--spokes', spokes);
