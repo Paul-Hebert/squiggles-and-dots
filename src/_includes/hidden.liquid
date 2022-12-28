@@ -1,0 +1,40 @@
+---
+layout: base.liquid
+scripts:
+- /assets/js/listings
+styles:
+- /assets/css/listings
+---
+
+<div class="container container--min stack" aria-labelledby="primary-heading">
+  <div class="heading-block">
+    <h1 id="primary-heading">{{title}}</h1>
+    {% if subhead %}
+      <p>{{subhead}}</p>
+    {% endif %}
+  </div>
+
+  {{content}}
+
+  <ul class="listings">
+    {% assign listings = collections.hidden | sortByOrder %}
+    {% for piece in listings %}
+      <li class="card">
+        <div 
+          class="card__graphic-wrapper ratio-box" 
+          style="--aspect-ratio: {{piece.data.height}}/{{piece.data.width}};"
+        >
+          <{{piece.data.tag}} class="card__graphic"></{{piece.data.tag}}>
+        </div>
+        <a href="{{piece.url | url}}" class="card__primary-action">
+          {{piece.data.title}}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+
+{% comment %} TODO: Tidy and move location {% endcomment %}
+{% for piece in collections.hidden %}
+  <script src="/hidden/{{piece.data.slug}}/{{piece.data.slug}}.js" type="module"></script>
+{% endfor %}
