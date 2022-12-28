@@ -17,13 +17,13 @@ export class SqBuildings extends SvgCanvas {
     this.hue = random(0, 360);
     this.strokeColor = `hsl(
       ${this.hue},
-      ${random(0, 50)}%,
+      ${random(20, 30)}%,
       ${random(10, 60)}%
     )`;
     this.fillColor = `hsl(
       ${this.hue},
       ${random(20, 50)}%,
-      ${random(80, 100)}%
+      ${random(80, 90)}%
     )`;
     this.flagColor = `hsl(
       ${this.hue},
@@ -33,10 +33,31 @@ export class SqBuildings extends SvgCanvas {
 
     let markup = "";
 
+    markup += `<rect 
+      x="0"
+      y="0"
+      width="${this.width}" 
+      height="${this.height}"
+      fill="hsl(
+      ${this.hue + 180},
+      ${random(5, 10)}%,
+      ${random(90, 95)}%
+    )"
+    />`;
+
     this.defs.innerHTML = this.defValues;
 
-    let buildingSize = Math.round(random(2, 5));
-    let xPos = Math.round(random(1, this.scaleWidth - buildingSize - 1));
+    for (let i = 0; i < random(2, 10); i++) {
+      markup += this.addBuildingGroup();
+    }
+
+    this.canvas.innerHTML = markup;
+  };
+
+  addBuildingGroup = () => {
+    let markup = "";
+    let buildingSize = Math.round(random(2, 9));
+    let xPos = Math.round(random(1, this.scaleWidth - buildingSize - 1 / 2));
 
     for (let i = 0; i < buildingSize; i++) {
       let width = 2;
@@ -46,7 +67,7 @@ export class SqBuildings extends SvgCanvas {
       xPos += width;
     }
 
-    this.canvas.innerHTML = markup;
+    return markup;
   };
 
   addBuilding = (xPos, width) => {
@@ -67,10 +88,12 @@ export class SqBuildings extends SvgCanvas {
         yPos: this.height - bodyHeight,
         height: bodyHeight,
       }) +
-      this.drawDoor({
-        xPos: xPos * this.scaleUnit,
-        width: width * this.scaleUnit,
-      })
+      (randomBool(0.75)
+        ? this.drawDoor({
+            xPos: xPos * this.scaleUnit,
+            width: width * this.scaleUnit,
+          })
+        : "")
     );
   };
 
@@ -122,7 +145,7 @@ export class SqBuildings extends SvgCanvas {
       `;
     }
 
-    if (Math.random() > 0.8) {
+    if (Math.random() > 0.9) {
       roof += this.drawFlag({ xPos, yPos, width, height });
     }
 
