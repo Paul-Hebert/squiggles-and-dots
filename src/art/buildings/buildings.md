@@ -1,6 +1,6 @@
 ---
 title: Buildings
-subhead: A base boilerplate
+subhead: Some little towns
 slug: "buildings"
 tag: "sq-buildings"
 scripts:
