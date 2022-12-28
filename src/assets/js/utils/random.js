@@ -25,4 +25,9 @@ function randomItemInArray(array) {
   return array[Math.floor(Math.random() * array.length)];
 }
 
-export { random, randomBool, randomItemInArray };
+// Returns a random integer between two values
+function randomInt(min, max) {
+  return Math.round(random(min, max));
+}
+
+export { random, randomBool, randomItemInArray, randomInt };
