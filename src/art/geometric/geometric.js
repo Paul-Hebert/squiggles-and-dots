@@ -36,7 +36,7 @@ export class SqGeometric extends SvgCanvas {
       });
     }
 
-    this.scaleUnit = randomItemInArray([60, 120]);
+    this.scaleUnit = randomItemInArray([60]);
     this.rows = this.width / this.scaleUnit;
     this.columns = this.width / this.scaleUnit;
 
