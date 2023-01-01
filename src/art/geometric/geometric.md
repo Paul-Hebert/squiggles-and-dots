@@ -1,12 +1,10 @@
 ---
 title: Geometric
-subhead: A base boilerplate
+subhead: Exploring simple shapes
 slug: "geometric"
 tag: "sq-geometric"
 scripts:
   - "geometric"
 width: 600
-height: 400
+height: 360
 ---
-
-Coming Soon...

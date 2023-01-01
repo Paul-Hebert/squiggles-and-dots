@@ -1,5 +1,6 @@
 import { SvgCanvas } from "../../assets/js/svg-canvas.js";
 import {
+  random,
   randomBool,
   randomInt,
   randomItemInArray,
@@ -9,12 +10,33 @@ export class SqGeometric extends SvgCanvas {
   name = "Geometric";
 
   width = 600;
-  height = 400;
+  height = 360;
 
   draw = () => {
     this.baseHue = randomInt(0, 360);
-    this.baseValue = randomInt(10, 90);
-    this.scaleUnit = randomItemInArray([40, 50, 100]);
+    this.baseLightness = randomInt(20, 30);
+    this.baseSaturation = randomInt(50, 70);
+
+    this.colors = [];
+
+    const colorCount = 5;
+    for (let i = 1; i <= colorCount; i++) {
+      this.colors.push({
+        h: this.baseHue + randomInt(-20, 20),
+        s: this.baseSaturation + randomInt(-20, 20),
+        l: this.baseLightness + 60 / i + 1,
+      });
+    }
+
+    if (randomBool()) {
+      this.colors.push({
+        h: this.baseHue + 180,
+        s: randomInt(5, 30),
+        l: this.baseLightness + random(-5, 40),
+      });
+    }
+
+    this.scaleUnit = randomItemInArray([60, 120]);
     this.rows = this.width / this.scaleUnit;
     this.columns = this.width / this.scaleUnit;
 
@@ -34,29 +56,40 @@ export class SqGeometric extends SvgCanvas {
 
     for (let row = 0; row < this.rows; row++) {
       for (let column = 0; column < this.columns; column++) {
-        markup += randomBool()
-          ? this.rectTile(row, column)
-          : this.curveTile(row, column);
+        markup += this.randomTile(row, column);
       }
     }
 
     for (let largeTiles = 0; largeTiles < randomInt(2, 5); largeTiles++) {
       const tileSize = randomItemInArray([2, 3]);
-      markup += randomBool()
-        ? this.rectTile(
-            randomInt(0, this.rows - tileSize),
-            randomInt(0, this.columns - tileSize),
-            tileSize
-          )
-        : this.curveTile(
-            randomInt(0, this.rows - tileSize),
-            randomInt(0, this.columns - tileSize),
-            tileSize
-          );
+      markup += this.randomTile(
+        randomInt(0, this.rows - tileSize),
+        randomInt(0, this.columns - tileSize),
+        tileSize
+      );
     }
 
     return markup;
   };
+
+  randomTile(row, column, sizeModifer) {
+    return randomItemInArray([
+      this.rectTile,
+      this.curveTile,
+      this.circleTile,
+    ]).call(this, row, column, sizeModifer);
+  }
+
+  circleTile(row, column, sizeModifer = 1) {
+    return `
+      <circle 
+        cx="${column * this.scaleUnit + this.scaleUnit / 2}"
+        cy="${row * this.scaleUnit + this.scaleUnit / 2}"
+        r="${(this.scaleUnit * sizeModifer * 2) / 5}"
+        ${this.fill()}
+      />
+    `;
+  }
 
   rectTile(row, column, sizeModifer = 1) {
     return `
@@ -88,13 +121,10 @@ export class SqGeometric extends SvgCanvas {
     `;
   }
 
-  fill = () => `        
-    fill="hsl(
-      ${this.baseHue},
-      ${randomInt(20, 100)}%,
-      ${this.baseValue + randomInt(-10, 10)}%
-    )"
-  `;
+  fill = () => {
+    const { h, s, l } = randomItemInArray(this.colors);
+    return `fill="hsl(${h}, ${s}%, ${l}%)"`;
+  };
 
   rotate = (startX, startY) => `
     transform="rotate(
