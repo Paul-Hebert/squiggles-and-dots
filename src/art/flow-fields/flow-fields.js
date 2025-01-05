@@ -46,6 +46,7 @@ export class SqFlowFields extends SvgFlowFieldCanvas {
     this.svg.style.backgroundColor = "#000";
 
     this.generateStartingPoints();
+    this.generateLines();
     // this.canvas.innerHTML = this.drawVectors();
     // this.canvas.innerHTML = this.drawVectors() + this.drawLines();
     this.canvas.innerHTML = this.drawLines();

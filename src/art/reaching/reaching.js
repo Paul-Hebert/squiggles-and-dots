@@ -19,26 +19,10 @@ export class SqReaching extends SvgFlowFieldCanvas {
   searchDistance = 1;
   vectorModifier = 0.75;
   lineLength = 20;
-
-  generateStartingPoints() {
-    this.startingPoints = [];
-
-    for (let i = 0; i < 400; i++) {
-      const x = random(0, this.xVectorsCount);
-      const y = random(0, this.yVectorsCount);
-
-      this.startingPoints.push({
-        x,
-        y,
-        color: this.colorFunction({ x, y }),
-        width: this.widthFunction({ x, y }),
-      });
-    }
-  }
+  pointDensity = 0.75;
 
   rotationFunction({ x, y }) {
     return this.noise.GetNoise(x, y) * 720;
-    // return x * x * random(1.5, 2.5) + y * y * random(1.5, 2.5);
   }
 
   widthFunction({ x, y }) {
@@ -46,6 +30,11 @@ export class SqReaching extends SvgFlowFieldCanvas {
   }
 
   colorFunction({ x, y }) {
+    // return {
+    //   h: 210,
+    //   s: randomInt(20, 60),
+    //   l: randomInt(20, 60),
+    // };
     return {
       h: this.noise.GetNoise(x, y) * 720,
       s: randomInt(20, 60),
@@ -55,18 +44,21 @@ export class SqReaching extends SvgFlowFieldCanvas {
 
   draw = () => {
     this.noise.SetSeed(random(0, 5000));
-    this.noise.SetFrequency(random(0.001, 0.1));
+    this.noise.SetFrequency(random(0.01, 0.05));
 
     this.generateVectors();
 
     this.svg.style.backgroundColor = "#000";
 
     this.generateStartingPoints();
+    this.generateLines();
     // this.canvas.innerHTML = this.drawVectors();
     // this.canvas.innerHTML = this.drawVectors() + this.drawLines();
     this.canvas.innerHTML = this.drawLines() + this.drawDots();
-    // this.generateLines();
-    // this.canvas.innerHTML = this.drawDots();
+    // this.canvas.innerHTML = this.drawLines();
+    // this.canvas.innerHTML =
+    //   this.drawVectors() + this.drawLines() + this.drawDots();
+    // this.canvas.innerHTML = this.drawVectors() + this.drawDots();
   };
 
   drawDots() {

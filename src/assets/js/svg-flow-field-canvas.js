@@ -109,8 +109,6 @@ export class SvgFlowFieldCanvas extends SvgCanvas {
   }
 
   generateLines() {
-    this.generateStartingPoints();
-
     this.lines = this.startingPoints.map(({ x, y, color, width }) => {
       const pointsOnLine = [{ x, y }];
 
@@ -127,8 +125,6 @@ export class SvgFlowFieldCanvas extends SvgCanvas {
   }
 
   drawLines() {
-    this.generateLines();
-
     return this.lines
       .map(
         ({ points, color, width }) =>

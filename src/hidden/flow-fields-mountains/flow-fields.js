@@ -19,10 +19,11 @@ export class SqFlowFields extends SvgFlowFieldCanvas {
   searchDistance = 1;
   vectorModifier = 0.25;
   lineLength = 50;
-  pointDensity = 0.5;
+  pointDensity = 2;
 
   rotationFunction({ x, y }) {
-    return 200 + this.noise.GetNoise(x, y) * 50;
+    const xModifier = (this.xVectorsCount / 2 - x) * y;
+    return 90 + xModifier + randomInt(-30, 30);
     // return x * x * random(1.5, 2.5) + y * y * random(1.5, 2.5);
   }
 
@@ -32,51 +33,27 @@ export class SqFlowFields extends SvgFlowFieldCanvas {
 
   colorFunction({ x, y }) {
     return {
-      h: this.noise.GetNoise(x, y) * 360,
-      s: 30,
-      l: 50,
+      h: random(300, 360),
+      s: this.noise.GetNoise(x, y) * 60 + 30,
+      l: this.noise.GetNoise(x, y) * 30 + 60,
     };
   }
 
-  splitLines() {
-    const newLines = [];
-    this.circles = [];
+  // generateStartingPoints() {
+  //   this.startingPoints = [];
 
-    this.lines.forEach((line) => {
-      const circleIndex = randomInt(10, line.points.length - 10);
+  //   const x = this.xVectorsCount / 2;
+  //   const y = 2;
 
-      newLines.push({
-        ...line,
-        points: line.points.slice(0, circleIndex),
-      });
-      newLines.push({
-        ...line,
-        points: line.points.slice(circleIndex + 1),
-      });
-      this.circles.push({
-        ...line,
-        ...line.points[circleIndex],
-      });
-    });
-
-    console.log(this.circles);
-
-    this.lines = newLines;
-  }
-
-  drawCircles() {
-    return this.circles.map(
-      ({ x, y, color }) => `
-      <circle 
-        r="5"
-        cx="${x * this.scaleUnit}" 
-        cy="${y * this.scaleUnit}" 
-        fill="${formatHsl(color)}" 
-        stroke="#000" 
-      />
-    `
-    );
-  }
+  //   for (let i = 0; i < 50; i++) {
+  //     this.startingPoints.push({
+  //       x: x + random(-1, 1),
+  //       y: y + randomInt(-1, 1),
+  //       color: this.colorFunction({ x, y }),
+  //       width: this.widthFunction({ x, y }),
+  //     });
+  //   }
+  // }
 
   draw = () => {
     this.noise.SetSeed(random(0, 5000));
@@ -84,14 +61,11 @@ export class SqFlowFields extends SvgFlowFieldCanvas {
 
     this.generateVectors();
 
-    this.svg.style.backgroundColor = "#000";
-
     this.generateStartingPoints();
     this.generateLines();
-    this.splitLines();
     // this.canvas.innerHTML = this.drawVectors();
     // this.canvas.innerHTML = this.drawVectors() + this.drawLines();
-    this.canvas.innerHTML = this.drawLines() + this.drawCircles();
+    this.canvas.innerHTML = this.drawLines();
   };
 }
 
